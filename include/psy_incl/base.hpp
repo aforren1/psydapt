@@ -17,7 +17,7 @@ namespace psydapt
     {
     public:
         virtual double next() = 0;
-        virtual bool update(int response, std::optional<double> intensity) = 0;
+        virtual bool update(int response, std::optional<double> intensity = std::nullopt) = 0;
     };
 } // namespace psydapt
 #endif

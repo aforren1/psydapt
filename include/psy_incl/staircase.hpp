@@ -47,7 +47,7 @@ namespace psydapt
      * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
      * @return Whether to continue the staircase or not.
      */
-        bool update(const int value, std::optional<double> intensity)
+        bool update(const int value, std::optional<double> intensity = std::nullopt)
         {
             bool proceed = true;
             // update history of intensity/response
