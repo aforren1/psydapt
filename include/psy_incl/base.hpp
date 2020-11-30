@@ -2,11 +2,22 @@
 #ifndef PSYDAPT_BASE_HPP
 #define PSYDAPT_BASE_HPP
 
-class Base
-{
-public:
-    virtual double next() = 0;
-    virtual bool update(int response, double intensity) = 0;
-};
+#include <optional>
 
+namespace psydapt
+{
+    enum class Scale
+    {
+        dB,
+        Linear,
+        Log
+    };
+
+    class Base
+    {
+    public:
+        virtual double next() = 0;
+        virtual bool update(int response, std::optional<double> intensity) = 0;
+    };
+} // namespace psydapt
 #endif
