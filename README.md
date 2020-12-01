@@ -22,3 +22,4 @@ Extra notes:
 - Require C++11
 - n-dimensional spaces, e.g. like quest+ can handle?
 - Want to build python and JS bindings optionally
+- Probably going to be GPLv3
