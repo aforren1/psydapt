@@ -36,10 +36,9 @@ namespace psydapt
         Staircase(const StairParams &params)
         {
             settings = params;
-            // fix the number of reversals (for )
             // reserve double the number of expected trials (arbitrary)
-            responses.reserve(2 * settings.n_trials);
-            intensities.reserve(2 * settings.n_trials);
+            responses.reserve(10 * settings.n_trials);
+            intensities.reserve(10 * settings.n_trials);
             next_intensity = settings.start_val; // starting point
             // if we have multiple step sizes and that's of length > 0,
             if (settings.step_sizes && (*settings.step_sizes).size())
@@ -121,12 +120,11 @@ namespace psydapt
                 // n right, so decrement
                 decrement();
             }
-            else if (correct_count <= settings.n_up)
+            else if (correct_count <= -settings.n_up)
             {
                 // n wrong, so increment
                 increment();
             }
-            //std::cout << correct_count << reversal_count;
             return next_intensity;
         }
 
@@ -167,6 +165,7 @@ namespace psydapt
                     correct_count = -1;
                 }
             }
+
             // check termination condition, and return false if we should stop
             trial_count++;
             if (reversal_count >= settings.n_reversals && intensities.size() >= settings.n_trials)
@@ -184,7 +183,6 @@ namespace psydapt
         int current_direction = 0;       // 1 = up, -1 = down, 0 = initial
         std::vector<int> responses;      // history of user responses
         std::vector<double> intensities; // history of intensities
-        //std::vector<double> reversal_intensities; // ??
         double next_intensity = 0;
         bool initial_rule = false;
         bool variable_step = false;
