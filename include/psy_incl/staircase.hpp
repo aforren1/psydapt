@@ -49,9 +49,9 @@ namespace psydapt
             // TODO: handle n_reversals machinery
         }
         /**
-     * Compute the next intensity value.
-     * @return Next intensity value.
-     */
+         * Compute the next intensity value.
+         * @return Next intensity value.
+         */
         double next()
         {
             // first call to next(), easy out
@@ -129,12 +129,12 @@ namespace psydapt
         }
 
         /**
-     * Update the staircase with user response and (optional) intensity used, and check whether to proceed or not.
-     * @param value Response made by participant (usually 0 or 1)
-     * @param intensity Optional intensity of the stimulus, if different from the one
-     * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
-     * @return Whether to continue the staircase or not.
-     */
+         * Update the staircase with user response and (optional) intensity used, and check whether to proceed or not.
+         * @param value Response made by participant (usually 0 or 1)
+         * @param intensity Optional intensity of the stimulus, if different from the one
+         * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
+         * @return Whether to continue the staircase or not.
+         */
         bool update(const int value, std::optional<double> intensity = std::nullopt)
         {
             // update history of intensity/response

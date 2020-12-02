@@ -19,7 +19,18 @@ Algorithms to implement:
 Extra notes:
 
 - Requirements so far: kthohr/stats? eigen/some other linalg lib?
-- Require C++11
+- Require C++17 (for std::optional, or use Corrade's Containers::Optional for C++11)
 - n-dimensional spaces, e.g. like quest+ can handle?
 - Want to build python and JS bindings optionally
 - Probably going to be GPLv3
+- Testing & benchmarking-- Corrade? Google things?
+
+Notes to self:
+
+```
+cmake -S . -B build -DBUILD_TESTS=ON
+
+cmake --build build (--config Release) (--parallel n)
+```
+
+Run tests with `ctest -V -C <Debug/Release>` from the build directory.

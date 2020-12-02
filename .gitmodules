@@ -1,0 +1,3 @@
+[submodule "ext/corrade"]
+	path = ext/corrade
+	url = https://github.com/mosra/corrade
