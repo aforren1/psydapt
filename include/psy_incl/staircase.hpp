@@ -22,7 +22,7 @@ namespace psydapt
         struct StairParams
         {
             double start_val;
-            int n_reversals;
+            std::optional<int> n_reversals = std::nullopt;
             double step_size; // if step_sizes is present, step_size is overridden
             std::optional<std::vector<double>> step_sizes = std::nullopt;
             int n_trials;
@@ -30,8 +30,8 @@ namespace psydapt
             int n_down;
             bool apply_initial_rule;
             Scale step_type;
-            std::optional<double> min_val;
-            std::optional<double> max_val;
+            std::optional<double> min_val = std::nullopt;
+            std::optional<double> max_val = std::nullopt;
         };
         Staircase(const StairParams &params)
         {
@@ -40,13 +40,30 @@ namespace psydapt
             responses.reserve(10 * settings.n_trials);
             intensities.reserve(10 * settings.n_trials);
             next_intensity = settings.start_val; // starting point
-            // if we have multiple step sizes and that's of length > 0,
-            if (settings.step_sizes && (*settings.step_sizes).size())
+            // if we have multiple step sizes and that's of length > 0...
+            if (settings.step_sizes)
             {
-                variable_step = true;
                 settings.step_size = (*settings.step_sizes)[0];
+                // even if step_sizes is specified, may be of length 1
+                variable_step = (*settings.step_sizes).size() > 1;
             }
-            // TODO: handle n_reversals machinery
+
+            // handle n_reversals (default is 1)
+            if (!settings.n_reversals)
+            {
+                if (settings.step_sizes)
+                {
+                    n_reversals = (*settings.step_sizes).size();
+                } // length=1 step_sizes implicitly handled (default is 1)
+            }
+            else if (settings.step_sizes && (*settings.step_sizes).size() > *settings.n_reversals)
+            {
+                n_reversals = (*settings.step_sizes).size();
+            }
+            else
+            {
+                n_reversals = *settings.n_reversals;
+            }
         }
         /**
          * Compute the next intensity value.
@@ -80,13 +97,13 @@ namespace psydapt
             // n correct, time to go down
             else if (correct_count >= settings.n_down)
             {
-                reversal = current_direction == 0 || current_direction == -1;
+                reversal = !(current_direction == 0 || current_direction == -1);
                 current_direction = -1;
             }
             // n wrong, time to go up
             else if (correct_count <= -settings.n_up)
             {
-                reversal = current_direction == 0 || current_direction == 1;
+                reversal = !(current_direction == 0 || current_direction == 1);
                 current_direction = 1;
             }
 
@@ -168,7 +185,7 @@ namespace psydapt
 
             // check termination condition, and return false if we should stop
             trial_count++;
-            if (reversal_count >= settings.n_reversals && intensities.size() >= settings.n_trials)
+            if (reversal_count >= n_reversals && intensities.size() >= settings.n_trials)
             {
                 return false;
             }
@@ -179,13 +196,14 @@ namespace psydapt
         StairParams settings;
         int trial_count = 0;
         int reversal_count = 0;          // use this rather than tracking the reversal intensities
-        int correct_count = 1;           //
+        int correct_count = 0;           //
         int current_direction = 0;       // 1 = up, -1 = down, 0 = initial
         std::vector<int> responses;      // history of user responses
         std::vector<double> intensities; // history of intensities
         double next_intensity = 0;
         bool initial_rule = false;
         bool variable_step = false;
+        int n_reversals = 1;
 
         void increment()
         {

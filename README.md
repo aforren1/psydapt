@@ -24,6 +24,7 @@ Extra notes:
 - Want to build python and JS bindings optionally
 - Probably going to be GPLv3
 - Testing & benchmarking-- Corrade? Google things?
+- For emscripten, no `std::optional`? But not sure if it's strictly necessary, and see https://github.com/emscripten-core/emscripten/issues/11139
 
 Notes to self:
 

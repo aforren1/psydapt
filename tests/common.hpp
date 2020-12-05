@@ -8,7 +8,8 @@ std::vector<int> makeBasicResponseCycles(int cycles, int n_correct, int n_incorr
                                          std::optional<int> length = std::nullopt)
 {
     std::vector<int> out;
-    out.reserve(length ? *length : n_correct * n_incorrect * cycles);
+    int raw_len = n_correct * n_incorrect * cycles;
+    out.reserve(length ? *length : raw_len);
     for (int j = 0; j < cycles; j++)
     {
 
@@ -21,7 +22,7 @@ std::vector<int> makeBasicResponseCycles(int cycles, int n_correct, int n_incorr
             out.push_back(0);
         }
     }
-    if (length)
+    if (length && *length < raw_len)
     {
         out.erase(out.begin() + *length, out.end());
     }
