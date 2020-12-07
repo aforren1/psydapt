@@ -1,5 +1,5 @@
-#ifndef PSYDAPT_QUEST_HPP
-#define PSYDAPT_QUEST_HPP
+#ifndef PSYDAPT_QUESTPLUS_HPP
+#define PSYDAPT_QUESTPLUS_HPP
 
 #include "base.hpp"
 

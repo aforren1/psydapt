@@ -6,6 +6,8 @@ add_subdirectory(ext)
 
 option(BUILD_TESTS "Build unit tests" OFF)
 
+#find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
 add_library(psydapt INTERFACE)
 target_include_directories(psydapt
     INTERFACE
@@ -15,6 +17,12 @@ target_include_directories(psydapt
 
 add_executable(Test test.cpp)
 target_link_libraries(Test PRIVATE psydapt)
+
+# add_executable(EigScratch eig_scratch.cpp)
+# target_link_libraries(EigScratch PRIVATE Eigen3::Eigen)
+
+add_executable(XTensScratch xtensor_scratch.cpp)
+target_link_libraries(XTensScratch PUBLIC xtensor)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTS)
     enable_testing()

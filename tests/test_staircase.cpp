@@ -29,7 +29,7 @@ void TestStaircase::linear()
     params.start_val = 0.8;
     params.min_val = 0;
     params.max_val = 1;
-    params.step_sizes = std::vector<double>{0.1, 0.01, 0.001};
+    params.step_sizes = {0.1, 0.01, 0.001};
     params.n_up = 1;
     params.n_down = 3;
     params.n_reversals = 4;
@@ -65,7 +65,7 @@ void TestStaircase::log()
     params.start_val = 0.8;
     params.min_val = 0;
     params.max_val = 1;
-    params.step_sizes = std::vector<double>{0.4 / 20, 0.2 / 20, 0.2 / 20, 0.1 / 20};
+    params.step_sizes = {0.4 / 20, 0.2 / 20, 0.2 / 20, 0.1 / 20};
     params.n_up = 1;
     params.n_down = 3;
     params.n_reversals = 4;
