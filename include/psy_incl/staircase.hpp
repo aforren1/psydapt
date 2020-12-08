@@ -17,6 +17,7 @@ namespace psydapt
      * 
      * 
      */
+    template <typename T>
     class Staircase : public Base
     {
     public:
@@ -47,7 +48,7 @@ namespace psydapt
             step_sizes = psydapt::internal::anyToVector(settings.step_sizes);
             step_size = step_sizes[0];
             // even if step_sizes is specified, may be of length 1
-            variable_step = (*settings.step_sizes).size() > 1;
+            variable_step = step_sizes.size() > 1;
 
             // handle n_reversals (default is 1)
             if (!settings.n_reversals)
