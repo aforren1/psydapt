@@ -5,6 +5,7 @@
 #include "xtensor/xio.hpp"
 #include "xtensor/xview.hpp"
 #include "xtensor/xadapt.hpp"
+
 int main(int argc, char *argv[])
 {
     std::vector<double> foo{1, 2, 3};

@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "base.hpp"
+#include "internal.hpp"
 
 namespace psydapt
 {
@@ -19,12 +20,12 @@ namespace psydapt
     class Staircase : public Base
     {
     public:
+        template <typename T>
         struct StairParams
         {
             double start_val;
             std::optional<int> n_reversals = std::nullopt;
-            double step_size; // if step_sizes is present, step_size is overridden
-            std::optional<std::vector<double>> step_sizes = std::nullopt;
+            T step_sizes;
             int n_trials;
             int n_up;
             int n_down;
@@ -33,7 +34,9 @@ namespace psydapt
             std::optional<double> min_val = std::nullopt;
             std::optional<double> max_val = std::nullopt;
         };
-        Staircase(const StairParams &params)
+
+        template <typename T>
+        Staircase(const StairParams<T> &params)
         {
             settings = params;
             // reserve double the number of expected trials (arbitrary)
@@ -41,24 +44,21 @@ namespace psydapt
             intensities.reserve(10 * settings.n_trials);
             next_intensity = settings.start_val; // starting point
             // if we have multiple step sizes and that's of length > 0...
-            if (settings.step_sizes)
-            {
-                settings.step_size = (*settings.step_sizes)[0];
-                // even if step_sizes is specified, may be of length 1
-                variable_step = (*settings.step_sizes).size() > 1;
-            }
+            step_sizes = psydapt::internal::anyToVector(settings.step_sizes);
+            step_size = step_sizes[0];
+            // even if step_sizes is specified, may be of length 1
+            variable_step = (*settings.step_sizes).size() > 1;
 
             // handle n_reversals (default is 1)
             if (!settings.n_reversals)
             {
-                if (settings.step_sizes)
-                {
-                    n_reversals = (*settings.step_sizes).size();
-                } // length=1 step_sizes implicitly handled (default is 1)
+
+                n_reversals = step_sizes.size();
+                // length=1 step_sizes implicitly handled (default is 1)
             }
-            else if (settings.step_sizes && (*settings.step_sizes).size() > *settings.n_reversals)
+            else if (step_sizes.size() > *settings.n_reversals)
             {
-                n_reversals = (*settings.step_sizes).size();
+                n_reversals = step_sizes.size();
             }
             else
             {
@@ -112,17 +112,15 @@ namespace psydapt
             // new step size if necessary
             if (reversal && variable_step)
             {
-                // pull out the step vector
-                std::vector<double> &step_sizes = *settings.step_sizes;
                 // check if we've gone beyond the list of step sizes; use the
                 // last one otherwise
                 if (reversal_count >= step_sizes.size())
                 {
-                    settings.step_size = step_sizes.end()[-1];
+                    step_size = step_sizes.end()[-1];
                 }
                 else
                 {
-                    settings.step_size = step_sizes[reversal_count];
+                    step_size = step_sizes[reversal_count];
                 }
             }
             // apply new step size
@@ -193,7 +191,7 @@ namespace psydapt
         }
 
     private:
-        StairParams settings;
+        StairParams<T> settings;
         int trial_count = 0;
         int reversal_count = 0;          // use this rather than tracking the reversal intensities
         int correct_count = 0;           //
@@ -204,19 +202,21 @@ namespace psydapt
         bool initial_rule = false;
         bool variable_step = false;
         int n_reversals = 1;
+        std::vector<double> step_sizes;
+        double step_size; // hold current step size
 
         void increment()
         {
             switch (settings.step_type)
             {
             case Scale::dB:
-                next_intensity *= std::pow(10.0, settings.step_size / 20.0);
+                next_intensity *= std::pow(10.0, step_size / 20.0);
                 break;
             case Scale::Log:
-                next_intensity *= std::pow(10.0, settings.step_size);
+                next_intensity *= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:
-                next_intensity += settings.step_size;
+                next_intensity += step_size;
                 break;
             }
             if (settings.max_val)
@@ -231,13 +231,13 @@ namespace psydapt
             switch (settings.step_type)
             {
             case Scale::dB:
-                next_intensity /= std::pow(10.0, settings.step_size / 20.0);
+                next_intensity /= std::pow(10.0, step_size / 20.0);
                 break;
             case Scale::Log:
-                next_intensity /= std::pow(10.0, settings.step_size);
+                next_intensity /= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:
-                next_intensity -= settings.step_size;
+                next_intensity -= step_size;
                 break;
             }
             if (settings.min_val)
