@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "base.hpp"
-#include "internal.hpp"
 
 namespace psydapt
 {
@@ -20,12 +19,11 @@ namespace psydapt
     class Staircase : public Base
     {
     public:
-        template <typename T>
         struct StairParams
         {
             double start_val;
             std::optional<int> n_reversals = std::nullopt;
-            T step_sizes;
+            std::vector<double> step_sizes;
             int n_trials;
             int n_up;
             int n_down;
@@ -35,17 +33,9 @@ namespace psydapt
             std::optional<double> max_val = std::nullopt;
         };
 
-        template <typename T>
-        Staircase(const StairParams<T> &params)
+        Staircase(const StairParams &params)
         {
-            settings.start_val = params.start_val;
-            settings.n_trials = params.n_trials;
-            settings.n_up = params.n_up;
-            settings.n_down = params.n_down;
-            settings.apply_initial_rule = params.apply_initial_rule;
-            settings.min_val = params.min_val;
-            settings.max_val = params.max_val;
-            settings.step_sizes = internal::anyToVector(params.step_sizes);
+            settings = params;
             step_size = settings.step_sizes[0];
 
             // even if step_sizes is specified, may be of length 1
@@ -207,7 +197,7 @@ namespace psydapt
         bool variable_step = false;
         double step_size;
 
-        Staircase::StairParams<std::vector<double>> settings;
+        Staircase::StairParams settings;
 
         void increment()
         {

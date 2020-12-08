@@ -6,7 +6,7 @@
 int main()
 {
     using namespace psydapt;
-    Staircase::StairParams<std::vector<double>> params;
+    Staircase::StairParams params;
     params.start_val = 0.5;
     params.n_reversals = 3;
     params.step_sizes = {0.1, 0.01};
