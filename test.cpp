@@ -6,7 +6,7 @@
 int main()
 {
     using namespace psydapt;
-    Staircase<std::vector<double>>::StairParams<std::vector<double>> params;
+    Staircase::StairParams<std::vector<double>> params;
     params.start_val = 0.5;
     params.n_reversals = 3;
     params.step_sizes = {0.1, 0.01};
@@ -17,7 +17,7 @@ int main()
     params.step_type = Scale::Linear;
     params.min_val = 0.1;
 
-    Staircase<std::vector<double>> stare{params};
+    Staircase stare{params};
 
     bool cont = true;
     while (cont)

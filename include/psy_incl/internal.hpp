@@ -7,16 +7,17 @@ namespace psydapt
 {
     namespace internal
     {
-        template <typename T>
-        std::vector<double> anyToVector(const T t)
+        template <class S>
+        std::vector<double> anyToVector(const S &s)
         {
-            return {t};
-        }
-
-        template <typename T>
-        std::vector<double> anyToVector(const std::vector<T> &t)
-        {
-            return std::vector<double>(t.begin(), t.end());
+            if (constexpr(std::is_arithmetic_v<S>))
+            {
+                return {s};
+            }
+            else
+            {
+                return std::vector<double>(s.begin(), s.end());
+            }
         }
     } // namespace internal
 } // namespace psydapt
