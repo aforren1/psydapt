@@ -1,9 +1,6 @@
 [submodule "ext/corrade"]
 	path = ext/corrade
 	url = https://github.com/mosra/corrade
-[submodule "ext/eigen"]
-	path = ext/eigen
-	url = https://gitlab.com/libeigen/eigen
 [submodule "ext/gcem"]
 	path = ext/gcem
 	url = https://github.com/kthohr/gcem
