@@ -18,7 +18,7 @@ namespace psydapt
     class Staircase : public Base
     {
     public:
-        struct StairParams
+        struct Params
         {
             double start_val;
             std::optional<int> n_reversals = std::nullopt;
@@ -27,12 +27,12 @@ namespace psydapt
             int n_up;
             int n_down;
             bool apply_initial_rule;
-            Scale step_type;
+            Scale scale = Scale::Linear;
             std::optional<double> min_val = std::nullopt;
             std::optional<double> max_val = std::nullopt;
         };
 
-        Staircase(const StairParams &params)
+        Staircase(const Params &params)
         {
             settings = params;
             step_size = settings.step_sizes[0];
@@ -196,16 +196,16 @@ namespace psydapt
         bool variable_step = false;
         double step_size;
 
-        Staircase::StairParams settings;
+        Staircase::Params settings;
 
         void increment()
         {
-            switch (settings.step_type)
+            switch (settings.scale)
             {
             case Scale::dB:
                 next_intensity *= std::pow(10.0, step_size / 20.0);
                 break;
-            case Scale::Log:
+            case Scale::Log10:
                 next_intensity *= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:
@@ -221,12 +221,12 @@ namespace psydapt
 
         void decrement()
         {
-            switch (settings.step_type)
+            switch (settings.scale)
             {
             case Scale::dB:
                 next_intensity /= std::pow(10.0, step_size / 20.0);
                 break;
-            case Scale::Log:
+            case Scale::Log10:
                 next_intensity /= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:

@@ -24,7 +24,7 @@ TestStaircase::TestStaircase()
 void TestStaircase::linear()
 {
     using namespace psydapt;
-    Staircase::StairParams params;
+    Staircase::Params params;
     params.n_trials = 20;
     params.start_val = 0.8;
     params.min_val = 0;
@@ -35,7 +35,7 @@ void TestStaircase::linear()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.step_type = Scale::Linear;
+    params.scale = Scale::Linear;
 
     Staircase stare{params};
 
@@ -60,7 +60,7 @@ void TestStaircase::linear()
 void TestStaircase::log()
 {
     using namespace psydapt;
-    Staircase::StairParams params;
+    Staircase::Params params;
     params.n_trials = 20;
     params.start_val = 0.8;
     params.min_val = 0;
@@ -71,7 +71,7 @@ void TestStaircase::log()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.step_type = Scale::Log;
+    params.scale = Scale::Log10;
 
     Staircase stare{params};
 
@@ -100,7 +100,7 @@ void TestStaircase::log()
 void TestStaircase::nextAndUpdate()
 {
     using namespace psydapt;
-    Staircase::StairParams params;
+    Staircase::Params params;
     params.n_trials = 1000;
     params.start_val = 0.8;
     params.min_val = 0;
@@ -111,7 +111,7 @@ void TestStaircase::nextAndUpdate()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.step_type = Scale::Linear;
+    params.scale = Scale::Linear;
 
     Staircase stare{params};
 

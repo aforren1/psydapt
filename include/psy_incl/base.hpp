@@ -10,7 +10,7 @@ namespace psydapt
     {
         dB,
         Linear,
-        Log
+        Log10
     };
 
     class Base

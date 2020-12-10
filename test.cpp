@@ -6,7 +6,7 @@
 int main()
 {
     using namespace psydapt;
-    Staircase::StairParams params;
+    Staircase::Params params;
     params.start_val = 0.5;
     params.n_reversals = 3;
     params.step_sizes = {0.1, 0.01};
@@ -14,7 +14,7 @@ int main()
     params.n_up = 2;
     params.n_down = 2;
     params.apply_initial_rule = true;
-    params.step_type = Scale::Linear;
+    params.scale = Scale::Linear;
     params.min_val = 0.1;
 
     Staircase stare{params};
