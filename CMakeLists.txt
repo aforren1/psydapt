@@ -11,13 +11,14 @@ target_include_directories(psydapt
     INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${xtensor_INCLUDE_DIRS}
 )
 
 add_executable(Test test.cpp)
-target_link_libraries(Test PRIVATE psydapt)
+target_link_libraries(Test PRIVATE psydapt xtensor)
 
 add_executable(XTensScratch xtensor_scratch.cpp)
-target_link_libraries(XTensScratch PUBLIC xtensor)
+target_link_libraries(XTensScratch PUBLIC xtensor psydapt)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTS)
     enable_testing()
