@@ -4,8 +4,7 @@
 #include <vector>
 #include <type_traits>
 
-#include "base.hpp"
-#include "questplus_fns.hpp"
+#include "fn_base.hpp"
 
 namespace psydapt
 {

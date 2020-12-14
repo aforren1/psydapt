@@ -5,7 +5,7 @@
 #include <cmath>
 #include <vector>
 
-#include "base.hpp"
+#include "../base.hpp"
 
 namespace psydapt
 {

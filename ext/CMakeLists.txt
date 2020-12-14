@@ -1,10 +1,10 @@
 
-# set(EIGEN_BUILD_DOC OFF CACHE BOOL "" FORCE)
-# set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
-# add_subdirectory(eigen EXCLUDE_FROM_ALL)
 
 set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(XTENSOR_DISABLE_EXCEPTIONS ON CACHE BOOL "" FORCE)
+set(XTENSOR_USE_XSIMD 1 CACHE BOOL "" FORCE)
 add_subdirectory(xtl)
+add_subdirectory(xsimd)
 add_subdirectory(xtensor)
 
 # only include corrade if we're testing

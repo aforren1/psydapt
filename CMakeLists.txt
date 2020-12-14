@@ -13,6 +13,7 @@ target_include_directories(psydapt
     $<INSTALL_INTERFACE:include>
     ${xtensor_INCLUDE_DIRS}
 )
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 add_executable(Test test.cpp)
 target_link_libraries(Test PRIVATE psydapt xtensor)
