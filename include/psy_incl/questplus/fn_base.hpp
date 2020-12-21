@@ -22,7 +22,7 @@ namespace psydapt
         {
         public:
             virtual xt::xarray<double> generate_prior() = 0;
-            virtual xt::xarray<double> generate_likelihood() = 0;
+            virtual xt::xarray<double> generate_likelihoods() = 0;
             const std::vector<double> outcome_domain{0, 1};
         };
 

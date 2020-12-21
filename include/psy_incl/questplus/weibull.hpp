@@ -112,7 +112,7 @@ namespace psydapt
                 return prior / xt::sum(prior);
             }
 
-            xt::xarray<double> generate_likelihood()
+            xt::xarray<double> generate_likelihoods()
             {
                 using sz = std::vector<std::size_t>;
                 auto x = xt::adapt(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
@@ -134,7 +134,9 @@ namespace psydapt
                     p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - thresh) / 20.0));
                     break;
                 }
-                return p;
+                // in this, we diverge from hoechenberger/questplus
+                // store 0/incorrect as 0th element, so that we can index using the response
+                return xt::stack(xt::xtuple(1.0 - p, p));
             }
         };
     } // namespace questplus

@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     questplus::Weibull weibull{p};
 
-    std::cout << weibull.generate_likelihood();
+    std::cout << weibull.generate_likelihoods();
 
     return 0;
 }
