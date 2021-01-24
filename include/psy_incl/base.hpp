@@ -13,11 +13,12 @@ namespace psydapt
         Log10
     };
 
+    template <typename T = double>
     class Base
     {
     public:
-        virtual double next() = 0;
-        virtual bool update(int response, std::optional<double> intensity = std::nullopt) = 0;
+        virtual T next() = 0;
+        virtual bool update(int response, std::optional<T> intensity = std::nullopt) = 0;
     };
 } // namespace psydapt
 #endif
