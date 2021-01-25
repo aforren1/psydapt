@@ -3,14 +3,17 @@ For quest+, the psychometric function knows at compile time the stimulus domain 
 So inheritance-wise, we have the super-generic Base for `update` and `next`
 
 ```c++
-template <typename T = double>
+template <std::size_t DimStim = 1>
 class Base
 {
-    public:
-        virtual T next() = 0;
-        virtual bool update(int response, std::optional<T> intensity) = 0;
-    protected:
-        typedef T stim_type;
+
+protected:
+    typedef std::conditional_t<(DimStim > 1), std::array<double, DimStim>, double> stim_type;
+
+public:
+    virtual stim_type next() = 0;
+    virtual bool update(int response,
+                        const std::optional<stim_type> intensity = std::nullopt) = 0;
 };
 ```
 
