@@ -15,7 +15,7 @@ namespace psydapt
      * 
      * 
      */
-    class Staircase : public Base
+    class Staircase : public Base<1>
     {
     public:
         struct Params
@@ -145,7 +145,7 @@ namespace psydapt
          * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
          * @return Whether to continue the staircase or not.
          */
-        bool update(const int value, std::optional<double> intensity = std::nullopt)
+        bool update(const int value, const std::optional<double> intensity = std::nullopt)
         {
             // update history of intensity/response
             // if the user provides an intensity value, use that
