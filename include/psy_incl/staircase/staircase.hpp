@@ -23,9 +23,9 @@ namespace psydapt
             double start_val;
             std::optional<int> n_reversals = std::nullopt;
             std::vector<double> step_sizes;
-            int n_trials;
-            int n_up;
-            int n_down;
+            unsigned int n_trials;
+            unsigned int n_up;
+            unsigned int n_down;
             bool apply_initial_rule;
             Scale scale = Scale::Linear;
             std::optional<double> min_val = std::nullopt;
@@ -39,10 +39,10 @@ namespace psydapt
 
             // even if step_sizes is specified, may be of length 1
             variable_step = settings.step_sizes.size() > 1;
-            next_intensity = settings.start_val; // starting point
+            next_stimulus = settings.start_val; // starting point
             // reserve 10x the number of expected trials (arbitrary)
-            responses.reserve(10 * settings.n_trials);
-            intensities.reserve(10 * settings.n_trials);
+            response_history.reserve(10 * settings.n_trials);
+            stimulus_history.reserve(10 * settings.n_trials);
             // handle n_reversals (default is 1)
             if (!params.n_reversals)
             {
@@ -60,15 +60,15 @@ namespace psydapt
             }
         }
         /**
-         * Compute the next intensity value.
-         * @return Next intensity value.
+         * Compute the next stimulus value.
+         * @return Next stimulus value.
          */
         double next()
         {
             // first call to next(), easy out
             if (trial_count <= 0)
             {
-                return next_intensity;
+                return next_stimulus;
             }
 
             // asking for trial #2, use 1-down, 1-up rule
@@ -78,7 +78,7 @@ namespace psydapt
             {
                 initial_rule = true; // moved from later
                 // correct response previously
-                if (responses.end()[-1])
+                if (response_history.end()[-1])
                 {
                     reversal = current_direction == 1;
                     current_direction = -1;
@@ -123,7 +123,7 @@ namespace psydapt
             if ((!reversal_count || initial_rule) && settings.apply_initial_rule)
             {
                 initial_rule = false;
-                responses.end()[-1] ? decrement() : increment();
+                response_history.end()[-1] ? decrement() : increment();
             }
             else if (correct_count >= settings.n_down)
             {
@@ -135,27 +135,27 @@ namespace psydapt
                 // n wrong, so increment
                 increment();
             }
-            return next_intensity;
+            return next_stimulus;
         }
 
         /**
-         * Update the staircase with user response and (optional) intensity used, and check whether to proceed or not.
+         * Update the staircase with user response and (optional) stimulus used, and check whether to proceed or not.
          * @param value Response made by participant (usually 0 or 1)
-         * @param intensity Optional intensity of the stimulus, if different from the one
+         * @param stimulus Optional stimulus of the stimulus, if different from the one
          * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
          * @return Whether to continue the staircase or not.
          */
-        bool update(const int value, const std::optional<double> intensity = std::nullopt)
+        bool update(int value, std::optional<double> stimulus = std::nullopt)
         {
-            // update history of intensity/response
-            // if the user provides an intensity value, use that
+            // update history of stimulus/response
+            // if the user provides an stimulus value, use that
             // otherwise, fill in the last generated one
-            intensities.push_back(intensity ? *intensity : next_intensity);
-            responses.push_back(value);
+            stimulus_history.push_back(stimulus ? *stimulus : next_stimulus);
+            response_history.push_back(value);
 
             if (value)
             {
-                if (responses.size() > 1 && responses.end()[-2] == value)
+                if (response_history.size() > 1 && response_history.end()[-2] == value)
                 {
                     correct_count++;
                 }
@@ -166,7 +166,7 @@ namespace psydapt
             }
             else
             {
-                if (responses.size() > 1 && responses.end()[-2] == value)
+                if (response_history.size() > 1 && response_history.end()[-2] == value)
                 {
                     correct_count--;
                 }
@@ -178,7 +178,7 @@ namespace psydapt
 
             // check termination condition, and return false if we should stop
             trial_count++;
-            if (reversal_count >= settings.n_reversals && intensities.size() >= settings.n_trials)
+            if (reversal_count >= settings.n_reversals && stimulus_history.size() >= settings.n_trials)
             {
                 return false;
             }
@@ -186,13 +186,11 @@ namespace psydapt
         }
 
     private:
-        int trial_count = 0;
-        int reversal_count = 0;          // use this rather than tracking the reversal intensities
+        unsigned int trial_count = 0;
+        unsigned int reversal_count = 0; // use this rather than tracking the reversal intensities
         int correct_count = 0;           //
         int current_direction = 0;       // 1 = up, -1 = down, 0 = initial
-        std::vector<int> responses;      // history of user responses
-        std::vector<double> intensities; // history of intensities
-        double next_intensity = 0;
+        double next_stimulus = 0;
         bool variable_step = false;
         double step_size;
 
@@ -203,18 +201,18 @@ namespace psydapt
             switch (settings.scale)
             {
             case Scale::dB:
-                next_intensity *= std::pow(10.0, step_size / 20.0);
+                next_stimulus *= std::pow(10.0, step_size / 20.0);
                 break;
             case Scale::Log10:
-                next_intensity *= std::pow(10.0, step_size);
+                next_stimulus *= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:
-                next_intensity += step_size;
+                next_stimulus += step_size;
                 break;
             }
             if (settings.max_val)
             {
-                next_intensity = std::min(next_intensity, *settings.max_val);
+                next_stimulus = std::min(next_stimulus, *settings.max_val);
             }
             correct_count = 0;
         }
@@ -224,18 +222,18 @@ namespace psydapt
             switch (settings.scale)
             {
             case Scale::dB:
-                next_intensity /= std::pow(10.0, step_size / 20.0);
+                next_stimulus /= std::pow(10.0, step_size / 20.0);
                 break;
             case Scale::Log10:
-                next_intensity /= std::pow(10.0, step_size);
+                next_stimulus /= std::pow(10.0, step_size);
                 break;
             case Scale::Linear:
-                next_intensity -= step_size;
+                next_stimulus -= step_size;
                 break;
             }
             if (settings.min_val)
             {
-                next_intensity = std::max(next_intensity, *settings.min_val);
+                next_stimulus = std::max(next_stimulus, *settings.min_val);
             }
             correct_count = 0;
         }
