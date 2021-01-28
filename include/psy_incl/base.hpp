@@ -23,6 +23,7 @@ namespace psydapt
         typedef std::conditional_t<(DimStim > 1), std::array<double, DimStim>, double> stim_type;
         std::vector<int> response_history;
         std::vector<stim_type> stimulus_history;
+        stim_type next_stimulus; // if stimulus not passed in update, use this
 
     public:
         virtual stim_type next() = 0;

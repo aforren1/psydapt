@@ -22,9 +22,13 @@ The base quest+ psychometric function, which also sets the right type for `next`
 ```c++
 
 template <std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
-class PsychometricFunction : public Base<DimStim>
+class QuestPlusBase : public Base<DimStim>
 {
     public:
+
+        QuestPlusBase(const QuestPlusParams &qp_params) : qp_params(qp_params) {
+            // fill in basic init
+        }
 
         using stim_type = typename Base<DimStim>::stim_type;
         // TODO: fill in next & update
@@ -43,6 +47,7 @@ class PsychometricFunction : public Base<DimStim>
         std::vector<double> intensities; // history of intensities
 
     protected:
+        const QuestPlusParams qp_params;
         // derived classes must tell us how to calc prior & likelihood
         virtual xt::xtensor<double, DimParam> generate_prior() = 0;
         // +1 for response dimension
@@ -91,14 +96,16 @@ class PsychometricFunction : public Base<DimStim>
 Derived psychometric functions (e.g. normal CDF)
 
 ```c++
-class Weibull : public PsychometricFunction<1, 4, 2>
+class Weibull : public QuestPlusBase<1, 4, 2>
 {
     public:
-        Weibull(const Params &params)
+        Weibull(const QuestPlusParams &qp_params, const WeibullParams &weibull_settings) : QuestPlusBase<1, 4, 2>(qp_params), settings(weibull_settings)
         {
-            settings = params;
+
         }
     protected:
+        const WeibullParams settings;
+
         xt::xtensor<double, Weibull::dim_param> generate_prior() {
             auto thresh_prior = prior_helper(settings.threshold, settings.threshold_prior, 0);
             auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 1);

@@ -33,7 +33,7 @@ Outcome still integers for now, but make fewer assumptions about responses (in f
 Notes to self:
 
 ```
-cmake -S . -B build -DBUILD_TESTS=ON
+cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON
 
 cmake --build build (--config Release) (--parallel n)
 ```
