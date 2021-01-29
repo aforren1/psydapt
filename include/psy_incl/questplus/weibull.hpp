@@ -16,11 +16,11 @@ namespace psydapt
     namespace questplus
     {
 
-        class Weibull : public QuestPlusBase<1, 4, 2>
+        class Weibull : public QuestPlusBase<1, 4>
         {
         private:
             // short alias to call super methods
-            typedef QuestPlusBase<1, 4, 2> QPB;
+            typedef QuestPlusBase<1, 4> QPB;
 
         public:
             struct Params : BaseParams

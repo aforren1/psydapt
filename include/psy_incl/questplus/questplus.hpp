@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <vector>
 #include <random>
-#include <cmath>
 
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
@@ -32,7 +31,7 @@ namespace psydapt
             unsigned int max_consecutive_reps = 2;
             unsigned int random_seed = 1;
         };
-        template <std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
+        template <std::size_t DimStim, std::size_t DimParam>
         class QuestPlusBase : public Base<DimStim>
         {
         public:
@@ -43,8 +42,24 @@ namespace psydapt
             {
                 return 0;
             }
-            bool update(int response, std::optional<stim_type> intensity)
+            bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
+                // TODO: sanitize input? response can be any int...
+                stimulus_history.push_back(stimulus ? *stimulus : next_stimulus);
+                response_history.push_back(response);
+                // find nearest matching response
+                auto likelihood = xt::view(likelihoods, response, xt::all());
+
+                if constexpr (std::is_scalar<stim_type>)
+                {
+                    // find index of nearest stimulus input, and take a view from there
+                }
+                else
+                {
+                    // need to loop over all of DimStim/whatever the stim length is,
+                    // taking progressively more views
+                }
+
                 return true;
             }
 
@@ -55,12 +70,10 @@ namespace psydapt
             virtual xt::xtensor<double, DimParam + DimStim + 1> generate_likelihoods() = 0;
             static constexpr std::size_t dim_stim = DimStim;
             static constexpr std::size_t dim_param = DimParam;
-            static constexpr std::size_t n_resp = NResp;
             xt::xtensor<double, DimParam> prior;
             xt::xtensor<double, DimParam> posterior;
             xt::xtensor<double, DimParam + DimStim + 1> likelihoods;
             std::mt19937 rng; // for 'min_n_entropy'
-            double entropy = NAN;
 
             void setup()
             {
