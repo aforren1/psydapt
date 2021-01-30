@@ -4,9 +4,13 @@
 #include <cstddef>
 #include <vector>
 #include <random>
+#include <type_traits>
 
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
+#include "xtensor/xview.hpp"
+#include "xtensor/xsort.hpp"
+#include "xtensor/xmath.hpp"
 
 namespace psydapt
 {
@@ -45,14 +49,17 @@ namespace psydapt
             bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
                 // TODO: sanitize input? response can be any int...
-                stimulus_history.push_back(stimulus ? *stimulus : next_stimulus);
-                response_history.push_back(response);
+                this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
+                this->response_history.push_back(response);
                 // find nearest matching response
                 auto likelihood = xt::view(likelihoods, response, xt::all());
 
-                if constexpr (std::is_scalar<stim_type>)
+                const auto last_stim = this->stimulus_history.back();
+
+                if constexpr (std::is_scalar_v<stim_type>)
                 {
                     // find index of nearest stimulus input, and take a view from there
+                    std::size_t idx = xt::argmin(xt::abs(xt::view(likelihood, 0) - last_stim))[0];
                 }
                 else
                 {
