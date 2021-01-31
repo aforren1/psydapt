@@ -5,6 +5,8 @@
 #include <vector>
 #include <random>
 #include <type_traits>
+#include <array>
+#include <numeric>
 
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
@@ -44,6 +46,18 @@ namespace psydapt
             // TODO: fill in next & update
             stim_type next()
             {
+                xt::xtensor<double, DimParam + DimStim + 1> new_posterior = posterior * likelihoods;
+                std::array<std::size_t, DimParam> param_idx;
+                std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);
+                auto pk = xt::sum(new_posterior, param_idx);
+                new_posterior /= pk;
+
+                // entropy
+                auto H = -xt::nansum((new_posterior * xt::log(new_posterior)), param_idx);
+                // expected entropies
+                auto EH = xt::sum(pk * H, 0);
+                // just do min_entropy by default until figure out retrieving settings
+                // find index of minimum entropy, then figure out which stimuli are there
                 return 0;
             }
             bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
@@ -52,22 +66,27 @@ namespace psydapt
                 this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
                 this->response_history.push_back(response);
                 // find nearest matching response
-                auto likelihood = xt::view(likelihoods, response, xt::all());
+                auto likelihood2 = xt::view(likelihoods, response, xt::all());
 
                 const auto last_stim = this->stimulus_history.back();
 
+                static_assert(DimStim == 1, "Haven't figured out how to do more dimensions yet.");
+                xt::xtensor<double, DimParam> likelihood;
                 if constexpr (std::is_scalar_v<stim_type>)
                 {
                     // find index of nearest stimulus input, and take a view from there
-                    std::size_t idx = xt::argmin(xt::abs(xt::view(likelihood, 0) - last_stim))[0];
+                    std::size_t idx = xt::argmin(xt::abs(xt::view(likelihood2, 0) - last_stim))[0];
+                    likelihood = xt::view(likelihood2, idx);
                 }
                 else
                 {
                     // need to loop over all of DimStim/whatever the stim length is,
                     // taking progressively more views
                 }
+                posterior *= likelihood;
+                posterior /= xt::sum(posterior);
 
-                return true;
+                return true; // unconditionally continue for now
             }
 
         protected:

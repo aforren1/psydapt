@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <optional>
+#include <utility>
 
 #include "xtensor/xarray.hpp"
 #include "xtensor/xio.hpp"
@@ -47,6 +48,15 @@ int main(int argc, char *argv[])
     questplus::Weibull weibull{p};
 
     // std::cout << weibull.generate_likelihoods();
+
+    // xt::xarray<double> arr3{{1.0, 2.0, 3.0},
+    //                         {2.0, 5.0, 7.0},
+    //                         {2.0, 5.0, 7.0}};
+
+    // std::array<std::size_t, 2> fooo{1, 2};
+    // auto slc = [](auto input) { return xt::view(foob, input); };
+    // auto bah = std::apply(slc, &arr3, fooo);
+    // // std::cout << bah;
 
     return 0;
 }
