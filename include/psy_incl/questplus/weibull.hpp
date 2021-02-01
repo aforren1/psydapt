@@ -17,16 +17,16 @@ namespace psydapt
     namespace questplus
     {
 
-        class Weibull : public QuestPlusBase<1, 4>
+        class Weibull : public QuestPlusBase<1, 4, 2>
         {
         private:
             // short alias to call super methods
-            typedef QuestPlusBase<1, 4> QPB;
+            typedef QuestPlusBase<1, 4, 2> QPB;
 
         public:
             struct Params : BaseParams
             {
-                Scale scale = Scale::Log10;
+                Scale stim_scale = Scale::Log10;
                 std::vector<double> intensity;
                 std::vector<double> threshold;
                 std::vector<double> slope{3.5};
@@ -71,7 +71,7 @@ namespace psydapt
                 auto lapse = xt::adapt(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
 
                 xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim> p;
-                switch (settings.scale)
+                switch (settings.stim_scale)
                 {
                 case Scale::Linear:
                     p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(x / thresh, slope));

@@ -8,6 +8,7 @@
 #include <array>
 #include <numeric>
 #include <iostream>
+#include <string>
 
 #include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
@@ -40,32 +41,32 @@ namespace psydapt
             unsigned int max_consecutive_reps = 2;
             unsigned int random_seed = 1;
         };
-        template <std::size_t DimStim, std::size_t DimParam>
+        template <std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
         class QuestPlusBase : public Base<DimStim>
         {
         public:
             QuestPlusBase(unsigned int seed) : rng{seed} {}
             using stim_type = typename Base<DimStim>::stim_type;
-            // TODO: fill in next & update
+
             stim_type next()
             {
                 xt::xtensor<double, (DimParam + DimStim + 1)> new_posterior = posterior * likelihoods;
-                //std::cout << xt::adapt(posterior.shape()) << std::endl;
-                //std::cout << xt::adapt(likelihoods.shape()) << std::endl;
                 std::array<std::size_t, DimParam> param_idx;
                 std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);
                 auto pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);
                 xt::transpose(new_posterior) /= xt::transpose(pk);
 
                 // entropy
-                auto H = -xt::nansum((new_posterior * xt::log(new_posterior)), param_idx);
+                auto H = -xt::nansum((new_posterior * xt::log(new_posterior)), param_idx,
+                                     xt::evaluation_strategy::immediate);
                 // expected entropies for stimuli
-                auto EH = xt::sum(pk * H, 0);
+                auto EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
                 // just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
 
                 if constexpr (std::is_scalar_v<stim_type>)
                 {
+                    // TODO: handle min_n_entropy
                     this->next_stimulus = stimuli[xt::argmin(EH)];
                     return this->next_stimulus; // xtensor gives us an array, but it's only one value
                 }
@@ -76,7 +77,11 @@ namespace psydapt
             }
             bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
-                // TODO: sanitize input? response can be any int...
+                if (response < 0 || response >= n_resp)
+                {
+                    using namespace std::string_literals;
+                    throw std::invalid_argument("The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
+                }
                 this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
                 this->response_history.push_back(response);
                 // find nearest matching response
@@ -110,6 +115,7 @@ namespace psydapt
             virtual xt::xtensor<double, DimStim> make_stimuli() = 0;
             static constexpr std::size_t dim_stim = DimStim;
             static constexpr std::size_t dim_param = DimParam;
+            static constexpr std::size_t n_resp = NResp;
             xt::xtensor<double, DimParam> prior;
             xt::xtensor<double, DimParam> posterior;
             xt::xtensor<double, DimParam + DimStim + 1> likelihoods;

@@ -13,7 +13,7 @@ int main()
     p.slope = {0.5, 4.125, 7.75, 11.375, 15.};
     p.lower_asymptote = {0.01, 0.1325, 0.255, 0.3775, 0.5};
     p.lapse_rate = {0.01};
-    p.scale = psydapt::Scale::Log10;
+    p.stim_scale = psydapt::Scale::Log10;
 
     Weibull weibull{p};
     bool cont = true;

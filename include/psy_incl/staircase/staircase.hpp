@@ -30,7 +30,7 @@ namespace psydapt
                 int n_up;
                 int n_down;
                 bool apply_initial_rule;
-                Scale scale = Scale::Linear;
+                Scale stim_scale = Scale::Linear;
                 std::optional<double> min_val = std::nullopt;
                 std::optional<double> max_val = std::nullopt;
             };
@@ -198,7 +198,7 @@ namespace psydapt
 
             void increment()
             {
-                switch (settings.scale)
+                switch (settings.stim_scale)
                 {
                 case Scale::dB:
                     next_stimulus *= std::pow(10.0, step_size / 20.0);
@@ -219,7 +219,7 @@ namespace psydapt
 
             void decrement()
             {
-                switch (settings.scale)
+                switch (settings.stim_scale)
                 {
                 case Scale::dB:
                     next_stimulus /= std::pow(10.0, step_size / 20.0);

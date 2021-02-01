@@ -35,7 +35,7 @@ void TestStaircase::linear()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.scale = psydapt::Scale::Linear;
+    params.stim_scale = psydapt::Scale::Linear;
 
     Staircase stare{params};
 
@@ -71,7 +71,7 @@ void TestStaircase::log()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.scale = psydapt::Scale::Log10;
+    params.stim_scale = psydapt::Scale::Log10;
 
     Staircase stare{params};
 
@@ -111,7 +111,7 @@ void TestStaircase::nextAndUpdate()
     params.n_reversals = 4;
 
     params.apply_initial_rule = true;
-    params.scale = psydapt::Scale::Linear;
+    params.stim_scale = psydapt::Scale::Linear;
 
     Staircase stare{params};
 

@@ -14,7 +14,7 @@ int main()
     params.n_up = 2;
     params.n_down = 2;
     params.apply_initial_rule = true;
-    params.scale = psydapt::Scale::Linear;
+    params.stim_scale = psydapt::Scale::Linear;
     params.min_val = 0.1;
 
     Staircase stare{params};
