@@ -20,6 +20,9 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 add_executable(Test test.cpp)
 target_link_libraries(Test PUBLIC psydapt)
 
+add_executable(TestQP test_quest.cpp)
+target_link_libraries(TestQP PUBLIC psydapt)
+
 add_executable(XTensScratch xtensor_scratch.cpp)
 target_link_libraries(XTensScratch PUBLIC psydapt)
 

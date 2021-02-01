@@ -4,6 +4,7 @@
 #include <vector>
 #include <optional>
 
+#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xmath.hpp"
@@ -45,20 +46,24 @@ namespace psydapt
         protected:
             const Params settings;
 
+            xt::xtensor<double, Weibull::dim_stim> make_stimuli()
+            {
+                return xt::adapt(settings.intensity, {settings.intensity.size()});
+            }
+
             xt::xtensor<double, Weibull::dim_param> generate_prior()
             {
                 auto thresh_prior = prior_helper(settings.threshold, settings.threshold_prior, 0);
                 auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 1);
-                auto lower_prior = prior_helper(settings.lower_asymptote,
-                                                settings.lower_asymptote_prior, 2);
+                auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
                 auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
-                auto prior = thresh_prior * slope_prior * lower_prior * lapse_prior;
+                xt::xtensor<double, Weibull::dim_param> prior = thresh_prior * slope_prior * lower_prior * lapse_prior;
                 return prior / xt::sum(prior);
             }
 
             xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim + 1> generate_likelihoods()
             {
-                using sz = std::array<std::size_t, Weibull::dim_param + Weibull::dim_stim + 1>;
+                using sz = std::array<std::size_t, Weibull::dim_param + Weibull::dim_stim>;
                 auto x = xt::adapt(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
                 auto thresh = xt::adapt(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});
                 auto slope = xt::adapt(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});

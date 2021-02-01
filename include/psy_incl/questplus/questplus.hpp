@@ -7,12 +7,15 @@
 #include <type_traits>
 #include <array>
 #include <numeric>
+#include <iostream>
 
+#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xview.hpp"
 #include "xtensor/xsort.hpp"
 #include "xtensor/xmath.hpp"
+#include "xtensor/xutils.hpp"
 
 namespace psydapt
 {
@@ -46,19 +49,30 @@ namespace psydapt
             // TODO: fill in next & update
             stim_type next()
             {
-                xt::xtensor<double, DimParam + DimStim + 1> new_posterior = posterior * likelihoods;
+                xt::xtensor<double, (DimParam + DimStim + 1)> new_posterior = posterior * likelihoods;
+                //std::cout << xt::adapt(posterior.shape()) << std::endl;
+                //std::cout << xt::adapt(likelihoods.shape()) << std::endl;
                 std::array<std::size_t, DimParam> param_idx;
                 std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);
-                auto pk = xt::sum(new_posterior, param_idx);
-                new_posterior /= pk;
+                auto pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);
+                xt::transpose(new_posterior) /= xt::transpose(pk);
 
                 // entropy
                 auto H = -xt::nansum((new_posterior * xt::log(new_posterior)), param_idx);
-                // expected entropies
+                // expected entropies for stimuli
                 auto EH = xt::sum(pk * H, 0);
                 // just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
-                return 0;
+
+                if constexpr (std::is_scalar_v<stim_type>)
+                {
+                    this->next_stimulus = stimuli[xt::argmin(EH)];
+                    return this->next_stimulus; // xtensor gives us an array, but it's only one value
+                }
+                else
+                {
+                    return {0}; // we might need to do more to get it into a std::array
+                }
             }
             bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
@@ -66,8 +80,7 @@ namespace psydapt
                 this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
                 this->response_history.push_back(response);
                 // find nearest matching response
-                auto likelihood2 = xt::view(likelihoods, response, xt::all());
-
+                xt::xtensor<double, DimParam + 1> likelihood2 = xt::view(likelihoods, response, xt::all());
                 const auto last_stim = this->stimulus_history.back();
 
                 static_assert(DimStim == 1, "Haven't figured out how to do more dimensions yet.");
@@ -75,8 +88,8 @@ namespace psydapt
                 if constexpr (std::is_scalar_v<stim_type>)
                 {
                     // find index of nearest stimulus input, and take a view from there
-                    std::size_t idx = xt::argmin(xt::abs(xt::view(likelihood2, 0) - last_stim))[0];
-                    likelihood = xt::view(likelihood2, idx);
+                    std::size_t idx = xt::argmin(xt::abs(stimuli - last_stim))[0];
+                    likelihood = xt::view(likelihood2, idx, xt::all());
                 }
                 else
                 {
@@ -84,7 +97,7 @@ namespace psydapt
                     // taking progressively more views
                 }
                 posterior *= likelihood;
-                posterior /= xt::sum(posterior);
+                posterior /= xt::sum(posterior, xt::evaluation_strategy::immediate);
 
                 return true; // unconditionally continue for now
             }
@@ -94,11 +107,13 @@ namespace psydapt
             virtual xt::xtensor<double, DimParam> generate_prior() = 0;
             // +1 for response dimension
             virtual xt::xtensor<double, DimParam + DimStim + 1> generate_likelihoods() = 0;
+            virtual xt::xtensor<double, DimStim> make_stimuli() = 0;
             static constexpr std::size_t dim_stim = DimStim;
             static constexpr std::size_t dim_param = DimParam;
             xt::xtensor<double, DimParam> prior;
             xt::xtensor<double, DimParam> posterior;
             xt::xtensor<double, DimParam + DimStim + 1> likelihoods;
+            xt::xtensor<double, DimStim> stimuli;
             std::mt19937 rng; // for 'min_n_entropy'
 
             void setup()
@@ -107,6 +122,7 @@ namespace psydapt
                 prior = generate_prior();
                 posterior = prior;
                 likelihoods = generate_likelihoods();
+                stimuli = make_stimuli();
                 //
             }
 
