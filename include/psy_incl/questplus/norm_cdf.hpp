@@ -24,7 +24,7 @@ namespace psydapt
             {
                 return std::erfc(-x / std::sqrt(2)) / 2;
             }
-            auto vec_norm_cdf = xt::vectorize(norm_cdf);
+            static auto vec_norm_cdf = xt::vectorize(norm_cdf);
         } // namespace detail
         class NormCDF : public QuestPlusBase<1, 4, 2>
         {
