@@ -58,7 +58,7 @@ namespace psydapt
                 auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
                 auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
                 xt::xtensor<double, Weibull::dim_param> prior = thresh_prior * slope_prior * lower_prior * lapse_prior;
-                return prior / xt::sum(prior);
+                return prior / xt::sum(prior, xt::evaluation_strategy::immediate);
             }
 
             xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim + 1> generate_likelihoods()
