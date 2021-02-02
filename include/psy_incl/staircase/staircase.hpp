@@ -24,13 +24,13 @@ namespace psydapt
             struct Params
             {
                 double start_val;
-                std::optional<unsigned int> n_reversals = std::nullopt;
                 std::vector<double> step_sizes;
                 unsigned int n_trials;
                 int n_up;
                 int n_down;
                 bool apply_initial_rule;
                 Scale stim_scale = Scale::Linear;
+                std::optional<unsigned int> n_reversals = std::nullopt;
                 std::optional<double> min_val = std::nullopt;
                 std::optional<double> max_val = std::nullopt;
             };
