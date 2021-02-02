@@ -20,7 +20,6 @@ namespace psydapt
     {
         namespace detail
         {
-            double norm_cdf(double x);
             double norm_cdf(double x)
             {
                 return std::erfc(-x / std::sqrt(2)) / 2;
