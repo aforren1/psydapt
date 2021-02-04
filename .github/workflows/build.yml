@@ -3,6 +3,26 @@ name: Build
 on: [push]
 
 jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest] #, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+
+      - name: Run cmake
+        run: |
+          cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 2
+      - name: Run tests
+        run: |
+          cd build
+          ctest -V
+
   # doxygen from https://github.com/satu0king/Github-Documentation-With-Doxygen/blob/master/.github/workflows/main.yml
   build_dox:
     # The type of runner that the job will run on

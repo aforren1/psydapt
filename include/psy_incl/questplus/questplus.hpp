@@ -161,8 +161,8 @@ namespace psydapt
                 likelihoods = generate_likelihoods();
                 stimuli = make_stimuli();
                 // TODO: pick something smarter, once we incorporate termination conditions
-                response_history.reserve(500);
-                stimulus_history.reserve(500);
+                this->response_history.reserve(500);
+                this->stimulus_history.reserve(500);
                 //
             }
 

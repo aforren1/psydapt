@@ -6,3 +6,4 @@ find_package(Corrade REQUIRED TestSuite)
 set_directory_properties(PROPERTIES CORRADE_USE_PEDANTIC_FLAGS ON)
 
 corrade_add_test(Staircase test_staircase.cpp LIBRARIES psydapt)
+corrade_add_test(QuestPlus test_questplus.cpp LIBRARIES psydapt)

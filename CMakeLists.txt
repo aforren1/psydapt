@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(psydapt)
+project(psydapt VERSION 0.0.2)
 set(CMAKE_CXX_STANDARD 17) # std::optional
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
