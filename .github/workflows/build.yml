@@ -10,12 +10,6 @@ jobs:
         os: [ubuntu-latest] #, windows-latest, macos-latest]
 
     steps:
-      - name: Newer gcc
-        run: |
-          sudo apt update
-          sudo apt install gcc-9 g++-9
-        shell: bash
-
       - uses: actions/checkout@v2
         with:
           submodules: "recursive"
