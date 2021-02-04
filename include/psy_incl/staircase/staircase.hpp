@@ -1,6 +1,23 @@
-
 #ifndef PSYDAPT_STAIRCASE_HPP
 #define PSYDAPT_STAIRCASE_HPP
+/*
+This file is part of psydapt.
+
+Copyright © 2021 Alexander Forrence <alex.forrence@gmail.com>
+
+psydapt is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+psydapt is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #include <cmath>
 #include <vector>
@@ -8,31 +25,32 @@
 
 #include "../base.hpp"
 
+/** @file
+ * @brief Class @ref psydapt::staircase::Staircase
+ */
 namespace psydapt
 {
-    /**
-     * C++ port of PsychoPy's StairHandler
-     * https://github.com/psychopy/psychopy/blob/817ed9e38c6ac1d15a4beda98e916031e3bacaac/psychopy/data/staircase.py#L46
-     * 
-     * 
-     */
     namespace staircase
     {
+        /**
+         * @brief C++ port of PsychoPy's StairHandler
+         * https://github.com/psychopy/psychopy/blob/817ed9e38c6ac1d15a4beda98e916031e3bacaac/psychopy/data/staircase.py#L46
+         */
         class Staircase : public Base<1>
         {
         public:
             struct Params
             {
-                double start_val;
-                std::vector<double> step_sizes;
-                unsigned int n_trials;
-                int n_up;
-                int n_down;
-                bool apply_initial_rule;
-                Scale stim_scale = Scale::Linear;
-                std::optional<unsigned int> n_reversals = std::nullopt;
-                std::optional<double> min_val = std::nullopt;
-                std::optional<double> max_val = std::nullopt;
+                double start_val;                                       /// The initial value for the staircase.
+                std::vector<double> step_sizes;                         /// Step sizes, which moves to next value with each reversal.
+                unsigned int n_trials;                                  /// Minimum number of trials.
+                int n_up;                                               /// Number of '0' responses before the staircase increases.
+                int n_down;                                             /// Number of '1' responses before the staircase decreases.
+                bool apply_initial_rule;                                /// If `true`, apply 1-up/1-down rule until first reversal.
+                Scale stim_scale = Scale::Linear;                       /// Scale of the stimulus.
+                std::optional<unsigned int> n_reversals = std::nullopt; /// Minimum number of reversals.
+                std::optional<double> min_val = std::nullopt;           /// Smallest allowed staircase value.
+                std::optional<double> max_val = std::nullopt;           /// Largest allowed staircase value.
             };
             Staircase(const Params &params) : settings(params)
             {
@@ -60,10 +78,7 @@ namespace psydapt
                     settings.n_reversals = *params.n_reversals;
                 }
             }
-            /**
-         * Compute the next stimulus value.
-         * @return Next stimulus value.
-         */
+
             double next()
             {
                 // first call to next(), easy out
@@ -139,13 +154,6 @@ namespace psydapt
                 return next_stimulus;
             }
 
-            /**
-         * Update the staircase with user response and (optional) stimulus used, and check whether to proceed or not.
-         * @param value Response made by participant (usually 0 or 1)
-         * @param stimulus Optional stimulus of the stimulus, if different from the one
-         * produced by the staircase. Otherwise, the most recent value produced by `next()` is used.
-         * @return Whether to continue the staircase or not.
-         */
             bool update(int value, std::optional<double> stimulus = std::nullopt)
             {
                 // update history of stimulus/response

@@ -1,5 +1,23 @@
 #ifndef PSYDAPT_QUESTPLUS_HPP
 #define PSYDAPT_QUESTPLUS_HPP
+/*
+This file is part of psydapt.
+
+Copyright © 2021 Alexander Forrence <alex.forrence@gmail.com>
+
+psydapt is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+psydapt is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #include <cstddef>
 #include <vector>
@@ -18,15 +36,28 @@
 #include "xtensor/xmath.hpp"
 #include "xtensor/xutils.hpp"
 
+/** @file
+ * @brief Class @ref psydapt::questplus::QuestPlusBase
+ * 
+ * Implementation based on https://github.com/hoechenberger/questplus
+ */
 namespace psydapt
 {
     namespace questplus
     {
+        /** @brief Stimulus selection method.
+         *  
+         * `MinNEntropy` is currently ignored.
+         */
         enum class StimSelectionMethod
         {
             MinEntropy,
             MinNEntropy
         };
+        /** @brief Parameter estimation method.
+         * 
+         * Currently ignored.
+         */
         enum class ParamEstimationMethod
         {
             Mean,
@@ -35,11 +66,11 @@ namespace psydapt
         };
         struct BaseParams
         {
-            StimSelectionMethod stim_selection_method;
-            ParamEstimationMethod param_estimation_method;
-            unsigned int n = 5;
-            unsigned int max_consecutive_reps = 2;
-            unsigned int random_seed = 1;
+            StimSelectionMethod stim_selection_method = StimSelectionMethod::MinEntropy; /// Method used to select next stimulus.
+            ParamEstimationMethod param_estimation_method = ParamEstimationMethod::Mean; /// Method used to estimate parameters (ignored).
+            unsigned int n = 5;                                                          /// Number of smallest entropies considered if `MinNEntropy` selected.
+            unsigned int max_consecutive_reps = 2;                                       /// Number of times stimulus will be presented (`MinNEntropy` only).
+            unsigned int random_seed = 1;                                                /// Random seed used by `StimSelectionMethod`.
         };
         template <std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
         class QuestPlusBase : public Base<DimStim>
@@ -129,6 +160,9 @@ namespace psydapt
                 posterior = prior;
                 likelihoods = generate_likelihoods();
                 stimuli = make_stimuli();
+                // TODO: pick something smarter, once we incorporate termination conditions
+                response_history.reserve(500);
+                stimulus_history.reserve(500);
                 //
             }
 

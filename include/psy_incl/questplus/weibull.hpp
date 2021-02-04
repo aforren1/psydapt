@@ -1,5 +1,23 @@
 #ifndef PSYDAPT_QUESTPLUS_WEIBULL_HPP
 #define PSYDAPT_QUESTPLUS_WEIBULL_HPP
+/*
+This file is part of psydapt.
+
+Copyright © 2021 Alexander Forrence <alex.forrence@gmail.com>
+
+psydapt is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+psydapt is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #include <vector>
 #include <optional>
@@ -12,11 +30,13 @@
 #include "../base.hpp"
 #include "questplus.hpp"
 
+/** @file
+ * @brief Class @ref psydapt::questplus::Weibull
+ */
 namespace psydapt
 {
     namespace questplus
     {
-
         class Weibull : public QuestPlusBase<1, 4, 2>
         {
         private:
@@ -26,16 +46,16 @@ namespace psydapt
         public:
             struct Params : BaseParams
             {
-                Scale stim_scale = Scale::Log10;
-                std::vector<double> intensity;
-                std::vector<double> threshold;
-                std::vector<double> slope{3.5};
-                std::vector<double> lower_asymptote{0.01};
-                std::vector<double> lapse_rate{0.01};
-                std::optional<std::vector<double>> threshold_prior;
-                std::optional<std::vector<double>> slope_prior;
-                std::optional<std::vector<double>> lower_asymptote_prior;
-                std::optional<std::vector<double>> lapse_rate_prior;
+                Scale stim_scale = Scale::Log10;                          /// Scale of the stimulus.
+                std::vector<double> intensity;                            /// Array of possible stimulus values.
+                std::vector<double> threshold;                            /// Array of possible threshold parameter values.
+                std::vector<double> slope{3.5};                           /// Array of possible slope parameter values.
+                std::vector<double> lower_asymptote{0.01};                /// Array of possible lower asymptote parameter values.
+                std::vector<double> lapse_rate{0.01};                     /// Array of possible lapse rate parameter values.
+                std::optional<std::vector<double>> threshold_prior;       /// Prior over threshold.
+                std::optional<std::vector<double>> slope_prior;           /// Prior over slope.
+                std::optional<std::vector<double>> lower_asymptote_prior; /// Prior over lower asymptote.
+                std::optional<std::vector<double>> lapse_rate_prior;      /// Prior over lapse rate.
             };
             Weibull(const Params &params) : QPB(params.random_seed), settings(params)
             {

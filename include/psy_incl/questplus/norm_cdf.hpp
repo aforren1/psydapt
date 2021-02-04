@@ -1,5 +1,23 @@
 #ifndef PSYDAPT_QUESTPLUS_NORMCDF_HPP
 #define PSYDAPT_QUESTPLUS_NORMCDF_HPP
+/*
+This file is part of psydapt.
+
+Copyright © 2021 Alexander Forrence <alex.forrence@gmail.com>
+
+psydapt is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+psydapt is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #include <vector>
 #include <optional>
@@ -14,6 +32,9 @@
 #include "../base.hpp"
 #include "questplus.hpp"
 
+/** @file
+ * @brief Class @ref psydapt::questplus::NormCDF
+ */
 namespace psydapt
 {
     namespace questplus
@@ -34,16 +55,16 @@ namespace psydapt
         public:
             struct Params : BaseParams
             {
-                Scale stim_scale = Scale::Linear;
-                std::vector<double> intensity;
-                std::vector<double> location;
-                std::vector<double> scale{3.5};
-                std::vector<double> lower_asymptote{0.01};
-                std::vector<double> lapse_rate{0.01};
-                std::optional<std::vector<double>> location_prior;
-                std::optional<std::vector<double>> scale_prior;
-                std::optional<std::vector<double>> lower_asymptote_prior;
-                std::optional<std::vector<double>> lapse_rate_prior;
+                Scale stim_scale = Scale::Linear;                         /// Scale of the stimulus.
+                std::vector<double> intensity;                            /// Array of possible stimulus values.
+                std::vector<double> location;                             /// Array of possible location parameter values.
+                std::vector<double> scale{3.5};                           /// Array of possible scale parameter values.
+                std::vector<double> lower_asymptote{0.01};                /// Array of possible lower asymptote parameter values.
+                std::vector<double> lapse_rate{0.01};                     /// Array of possible lapse rate parameter values.
+                std::optional<std::vector<double>> location_prior;        /// Prior over location.
+                std::optional<std::vector<double>> scale_prior;           /// Prior over scale.
+                std::optional<std::vector<double>> lower_asymptote_prior; /// Prior over lower asymptote.
+                std::optional<std::vector<double>> lapse_rate_prior;      /// Prior over lapse rate.
             };
             NormCDF(const Params &params) : QPB(params.random_seed), settings(params)
             {
