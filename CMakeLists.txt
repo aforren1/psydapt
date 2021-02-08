@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(psydapt VERSION 0.1.0)
+project(psydapt VERSION 0.1.1)
 set(CMAKE_CXX_STANDARD 17) # std::optional
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
