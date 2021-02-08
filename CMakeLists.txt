@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.1)
-project(psydapt VERSION 0.0.2)
+project(psydapt VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17) # std::optional
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+configure_file("${PROJECT_SOURCE_DIR}/include/config.hpp.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/config.hpp")
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
 add_subdirectory(ext)
 
