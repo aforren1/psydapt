@@ -112,13 +112,14 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        std::vector&lt;int&gt; response_history;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        std::vector&lt;stim_type&gt; stimulus_history;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        stim_type next_stimulus; <span class="comment">// if stimulus not passed in update, use this</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classpsydapt_1_1Base.html#ae17736a45f4e2af9491a53a82f6e949c">   57</a></span>&#160;        <span class="keyword">virtual</span> stim_type <a class="code" href="classpsydapt_1_1Base.html#ae17736a45f4e2af9491a53a82f6e949c">next</a>() = 0;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">   65</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">update</a>(<span class="keywordtype">int</span> response, <span class="keyword">const</span> std::optional&lt;stim_type&gt; stimulus = std::nullopt) = 0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace psydapt</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">bool</span> should_continue = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classpsydapt_1_1Base.html#ae17736a45f4e2af9491a53a82f6e949c">   58</a></span>&#160;        <span class="keyword">virtual</span> stim_type <a class="code" href="classpsydapt_1_1Base.html#ae17736a45f4e2af9491a53a82f6e949c">next</a>() = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">   66</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">update</a>(<span class="keywordtype">int</span> response, <span class="keyword">const</span> std::optional&lt;stim_type&gt; stimulus = std::nullopt) = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    };</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace psydapt</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abase_8hpp_html_a2c8e70e642b3ca34240a792d3d373624"><div class="ttname"><a href="base_8hpp.html#a2c8e70e642b3ca34240a792d3d373624">psydapt::Scale</a></div><div class="ttdeci">Scale</div><div class="ttdoc">Stimulus scale.</div><div class="ttdef"><b>Definition:</b> base.hpp:33</div></div>
 <div class="ttc" id="aclasspsydapt_1_1Base_html"><div class="ttname"><a href="classpsydapt_1_1Base.html">psydapt::Base</a></div><div class="ttdoc">Base.</div><div class="ttdef"><b>Definition:</b> base.hpp:46</div></div>
 <div class="ttc" id="aclasspsydapt_1_1Base_html_ac3b03a075bf17dc12f969b25288d6667"><div class="ttname"><a href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">psydapt::Base::update</a></div><div class="ttdeci">virtual bool update(int response, const std::optional&lt; stim_type &gt; stimulus=std::nullopt)=0</div><div class="ttdoc">Update the state of the adaptive procedure.</div></div>
