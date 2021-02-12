@@ -101,7 +101,7 @@ void TestStaircase::nextAndUpdate()
 {
     using namespace psydapt::staircase;
     Staircase::Params params;
-    params.n_trials = 1000;
+    params.n_trials = 100000;
     params.start_val = 0.8;
     params.min_val = 0;
     params.max_val = 1;
@@ -115,14 +115,13 @@ void TestStaircase::nextAndUpdate()
 
     Staircase stare{params};
 
-    std::vector<int> sim_resp = makeBasicResponseCycles(30, 4, 4, 100);
     double a{};
     CORRADE_BENCHMARK(100)
     {
         for (std::size_t i = 0; i != 100; i++)
         {
             a += stare.next();
-            stare.update(sim_resp[i]);
+            stare.update(i % 2);
         }
     }
     CORRADE_VERIFY(a);

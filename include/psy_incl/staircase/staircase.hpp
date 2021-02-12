@@ -87,6 +87,11 @@ namespace psydapt
                     return next_stimulus;
                 }
 
+                if (!should_continue)
+                {
+                    throw std::runtime_error("The staircase has already finished.");
+                }
+
                 // asking for trial #2, use 1-down, 1-up rule
                 bool reversal = false;
                 bool initial_rule = false;
@@ -189,9 +194,9 @@ namespace psydapt
                 trial_count++;
                 if (reversal_count >= settings.n_reversals && stimulus_history.size() >= settings.n_trials)
                 {
-                    return false;
+                    should_continue = false;
                 }
-                return true;
+                return should_continue;
             }
 
         private:

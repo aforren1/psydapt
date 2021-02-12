@@ -50,6 +50,7 @@ namespace psydapt
         std::vector<int> response_history;
         std::vector<stim_type> stimulus_history;
         stim_type next_stimulus; // if stimulus not passed in update, use this
+        bool should_continue = true;
 
     public:
         /** @brief Generate the next stimulus (or stimuli) */
