@@ -74,9 +74,9 @@ namespace psydapt
         protected:
             const Params settings;
 
-            xt::xtensor<double, NormCDF::dim_stim> make_stimuli()
+            void make_stimuli()
             {
-                return xt::adapt(settings.intensity, {settings.intensity.size()});
+                stimuli[0] = xt::adapt(settings.intensity, {settings.intensity.size()});
             }
 
             xt::xtensor<double, NormCDF::dim_param> generate_prior()

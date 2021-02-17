@@ -22,5 +22,6 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include "psy_incl/staircase/staircase.hpp"
 #include "psy_incl/questplus/weibull.hpp"
 #include "psy_incl/questplus/norm_cdf.hpp"
+#include "psy_incl/questplus/csf.hpp"
 
 #endif // PSYDAPT_HPP

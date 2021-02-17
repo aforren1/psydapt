@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
-project(psydapt VERSION 0.1.1)
-set(CMAKE_CXX_STANDARD 17) # std::optional
+project(psydapt VERSION 0.1.2)
+set(CMAKE_CXX_STANDARD 17) # std::optional (and many other things)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 configure_file("${PROJECT_SOURCE_DIR}/include/config.hpp.in"
@@ -33,6 +33,9 @@ if (PSYDAPT_BUILD_SCRATCH)
 
     add_executable(XTensScratch xtensor_scratch.cpp)
     target_link_libraries(XTensScratch PUBLIC psydapt)
+
+    add_executable(TestCSF test_csf.cpp)
+    target_link_libraries(TestCSF PUBLIC psydapt)
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND PSYDAPT_BUILD_TESTS AND NOT EMSCRIPTEN)
