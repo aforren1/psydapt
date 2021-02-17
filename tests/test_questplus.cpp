@@ -48,7 +48,7 @@ void TestQuestPlus::threshold()
                                1, 1, 1, 1, 1,
                                1, 1};
     std::vector<double> pred_contrasts;
-    for (int i = 0; i < responses.size(); i++)
+    for (std::size_t i = 0; i < responses.size(); i++)
     {
         pred_contrasts.push_back(weibull.next());
         weibull.update(responses[i]);
@@ -76,7 +76,7 @@ void TestQuestPlus::nextAndUpdate()
         double a{};
         CORRADE_BENCHMARK(10)
         {
-            for (int i = 0; i < 100; i++)
+            for (std::size_t i = 0; i < 100; i++)
             {
                 a += weibull.next();
                 weibull.update(i % 2);

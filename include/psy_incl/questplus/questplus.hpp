@@ -25,7 +25,6 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <type_traits>
 #include <array>
 #include <numeric>
-#include <iostream>
 #include <string>
 #include <tuple>
 
@@ -93,9 +92,8 @@ namespace psydapt
                                      xt::evaluation_strategy::immediate);
                 // expected entropies for stimuli
                 auto EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
-                // just do min_entropy by default until figure out retrieving settings
+                // TODO: just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
-                // TODO: handle min_n_entropy
                 if constexpr (std::is_scalar_v<stim_type>)
                 {
                     this->next_stimulus = stimuli[0][xt::argmin(EH)];
@@ -112,9 +110,9 @@ namespace psydapt
                 }
                 return this->next_stimulus;
             }
-            bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
+            bool update(unsigned int response, std::optional<stim_type> stimulus = std::nullopt)
             {
-                if (response < 0 || response >= n_resp)
+                if (response >= n_resp)
                 {
                     using namespace std::string_literals;
                     throw std::invalid_argument("The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
@@ -125,7 +123,6 @@ namespace psydapt
                 xt::xtensor<double, DimParam + DimStim> likelihood2 = xt::view(likelihoods, response, xt::all());
                 const auto last_stim = this->stimulus_history.back();
 
-                // static_assert(DimStim < 4, "Haven't figured out how to do more dimensions yet.");
                 xt::xtensor<double, DimParam> likelihood;
                 if constexpr (std::is_scalar_v<stim_type>)
                 {

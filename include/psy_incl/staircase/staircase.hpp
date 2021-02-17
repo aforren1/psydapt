@@ -159,7 +159,7 @@ namespace psydapt
                 return next_stimulus;
             }
 
-            bool update(int value, std::optional<double> stimulus = std::nullopt)
+            bool update(unsigned int value, std::optional<double> stimulus = std::nullopt)
             {
                 // update history of stimulus/response
                 // if the user provides an stimulus value, use that

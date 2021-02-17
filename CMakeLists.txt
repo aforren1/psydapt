@@ -25,16 +25,16 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 # just temporary test files
 if (PSYDAPT_BUILD_SCRATCH)
-    add_executable(Test test.cpp)
+    add_executable(Test ${PROJECT_SOURCE_DIR}/stest.cpp)
     target_link_libraries(Test PUBLIC psydapt)
 
-    add_executable(TestQP test_quest.cpp)
+    add_executable(TestQP ${PROJECT_SOURCE_DIR}test_quest.cpp)
     target_link_libraries(TestQP PUBLIC psydapt)
 
-    add_executable(XTensScratch xtensor_scratch.cpp)
+    add_executable(XTensScratch ${PROJECT_SOURCE_DIR}xtensor_scratch.cpp)
     target_link_libraries(XTensScratch PUBLIC psydapt)
 
-    add_executable(TestCSF test_csf.cpp)
+    add_executable(TestCSF ${PROJECT_SOURCE_DIR}test_csf.cpp)
     target_link_libraries(TestCSF PUBLIC psydapt)
 endif()
 
