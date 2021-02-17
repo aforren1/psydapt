@@ -1,7 +1,8 @@
 <map id="psy_incl/base.hpp" name="psy_incl/base.hpp">
-<area shape="rect" id="node1" title="Class psydapt::Base, enum psydapt::Scale." alt="" coords="161,5,286,32"/>
-<area shape="rect" id="node2" href="$norm__cdf_8hpp.html" title="Class psydapt::questplus::NormCDF." alt="" coords="5,80,135,121"/>
-<area shape="rect" id="node4" href="$weibull_8hpp.html" title="Class psydapt::questplus::Weibull." alt="" coords="159,80,288,121"/>
-<area shape="rect" id="node5" href="$staircase_8hpp.html" title="Class psydapt::staircase::Staircase." alt="" coords="312,80,439,121"/>
-<area shape="rect" id="node3" href="$psydapt_8hpp_source.html" title=" " alt="" coords="178,169,269,196"/>
+<area shape="rect" id="node1" title="Class psydapt::Base, enum psydapt::Scale." alt="" coords="237,5,362,32"/>
+<area shape="rect" id="node2" href="$csf_8hpp.html" title="Class psydapt::questplus::CSF." alt="" coords="5,80,135,121"/>
+<area shape="rect" id="node4" href="$norm__cdf_8hpp.html" title="Class psydapt::questplus::NormCDF." alt="" coords="159,80,288,121"/>
+<area shape="rect" id="node5" href="$weibull_8hpp.html" title="Class psydapt::questplus::Weibull." alt="" coords="312,80,441,121"/>
+<area shape="rect" id="node6" href="$staircase_8hpp.html" title="Class psydapt::staircase::Staircase." alt="" coords="465,80,592,121"/>
+<area shape="rect" id="node3" href="$psydapt_8hpp_source.html" title=" " alt="" coords="254,169,345,196"/>
 </map>

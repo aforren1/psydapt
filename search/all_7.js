@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['questplus_2ehpp_27',['questplus.hpp',['../questplus_8hpp.html',1,'']]],
-  ['questplusbase_28',['QuestPlusBase',['../classpsydapt_1_1questplus_1_1QuestPlusBase.html',1,'psydapt::questplus']]],
-  ['questplusbase_3c_201_2c_204_2c_202_20_3e_29',['QuestPlusBase&lt; 1, 4, 2 &gt;',['../classpsydapt_1_1questplus_1_1QuestPlusBase.html',1,'psydapt::questplus']]]
+  ['param_5festimation_5fmethod_26',['param_estimation_method',['../structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8',1,'psydapt::questplus::BaseParams']]],
+  ['paramestimationmethod_27',['ParamEstimationMethod',['../questplus_8hpp.html#aa1ea34f1d76032898187d99ad216fbbf',1,'psydapt::questplus']]],
+  ['params_28',['Params',['../structpsydapt_1_1questplus_1_1CSF_1_1Params.html',1,'psydapt::questplus::CSF::Params'],['../structpsydapt_1_1questplus_1_1NormCDF_1_1Params.html',1,'psydapt::questplus::NormCDF::Params'],['../structpsydapt_1_1questplus_1_1Weibull_1_1Params.html',1,'psydapt::questplus::Weibull::Params'],['../structpsydapt_1_1staircase_1_1Staircase_1_1Params.html',1,'psydapt::staircase::Staircase::Params']]]
 ];

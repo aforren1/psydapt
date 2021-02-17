@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['weibull_55',['Weibull',['../classpsydapt_1_1questplus_1_1Weibull.html',1,'psydapt::questplus']]]
+  ['staircase_59',['Staircase',['../classpsydapt_1_1staircase_1_1Staircase.html',1,'psydapt::staircase']]]
 ];

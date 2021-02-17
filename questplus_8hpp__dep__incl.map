@@ -1,6 +1,7 @@
 <map id="psy_incl/questplus/questplus.hpp" name="psy_incl/questplus/questplus.hpp">
-<area shape="rect" id="node1" title="Class psydapt::questplus::QuestPlusBase." alt="" coords="81,5,211,47"/>
-<area shape="rect" id="node2" href="$norm__cdf_8hpp.html" title="Class psydapt::questplus::NormCDF." alt="" coords="5,95,135,136"/>
-<area shape="rect" id="node4" href="$weibull_8hpp.html" title="Class psydapt::questplus::Weibull." alt="" coords="159,95,288,136"/>
-<area shape="rect" id="node3" href="$psydapt_8hpp_source.html" title=" " alt="" coords="101,184,191,211"/>
+<area shape="rect" id="node1" title="Class psydapt::questplus::QuestPlusBase." alt="" coords="159,5,288,47"/>
+<area shape="rect" id="node2" href="$csf_8hpp.html" title="Class psydapt::questplus::CSF." alt="" coords="5,95,135,136"/>
+<area shape="rect" id="node4" href="$norm__cdf_8hpp.html" title="Class psydapt::questplus::NormCDF." alt="" coords="159,95,288,136"/>
+<area shape="rect" id="node5" href="$weibull_8hpp.html" title="Class psydapt::questplus::Weibull." alt="" coords="312,95,441,136"/>
+<area shape="rect" id="node3" href="$psydapt_8hpp_source.html" title=" " alt="" coords="178,184,269,211"/>
 </map>

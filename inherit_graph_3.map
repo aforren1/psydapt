@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpsydapt_1_1questplus_1_1BaseParams.html" title=" " alt="" coords="5,39,135,80"/>
-<area shape="rect" id="node2" href="$structpsydapt_1_1questplus_1_1NormCDF_1_1Params.html" title=" " alt="" coords="183,5,320,47"/>
-<area shape="rect" id="node3" href="$structpsydapt_1_1questplus_1_1Weibull_1_1Params.html" title=" " alt="" coords="187,71,316,112"/>
+<area shape="rect" id="node1" href="$structpsydapt_1_1questplus_1_1BaseParams.html" title=" " alt="" coords="5,71,135,112"/>
+<area shape="rect" id="node2" href="$structpsydapt_1_1questplus_1_1CSF_1_1Params.html" title=" " alt="" coords="187,5,316,47"/>
+<area shape="rect" id="node3" href="$structpsydapt_1_1questplus_1_1NormCDF_1_1Params.html" title=" " alt="" coords="183,71,320,112"/>
+<area shape="rect" id="node4" href="$structpsydapt_1_1questplus_1_1Weibull_1_1Params.html" title=" " alt="" coords="187,136,316,177"/>
 </map>
