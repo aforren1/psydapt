@@ -77,8 +77,12 @@ $(function() {
 <div class="fragment"><div class="line">cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release</div>
 <div class="line"> </div>
 <div class="line">cmake --build build (--config Release) (--parallel n)</div>
-</div><!-- fragment --><p>Run tests with <code>ctest -V -C &lt;Debug/Release&gt;</code> from the build directory. </p>
-</div></div><!-- PageDoc -->
+</div><!-- fragment --><p>Run tests with <code>ctest -V -C &lt;Debug/Release&gt;</code> from the build directory.</p>
+<p>For gprof:</p>
+<div class="fragment"><div class="line">cmake -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release</div>
+</div><!-- fragment --><p>callgrind:</p>
+<div class="fragment"><div class="line">valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes ./&lt;exe&gt;</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

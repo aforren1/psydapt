@@ -116,9 +116,9 @@ Public Member Functions</h2></td></tr>
 stim_type&#160;</td><td class="memItemRight" valign="bottom"><b>next</b> ()</td></tr>
 <tr class="memdesc:a1be7881e68744ab4ccc2abf22d7a9166 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the next stimulus (or stimuli) <br /></td></tr>
 <tr class="separator:a1be7881e68744ab4ccc2abf22d7a9166 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd5e5c913ca3bbc5018603635dd92f17 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="acd5e5c913ca3bbc5018603635dd92f17"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (unsigned int response, std::optional&lt; stim_type &gt; stimulus=std::nullopt)</td></tr>
-<tr class="separator:acd5e5c913ca3bbc5018603635dd92f17 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee5cdb3bf39b58539ca5cb0127bbc24 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="a4ee5cdb3bf39b58539ca5cb0127bbc24"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int response, std::optional&lt; stim_type &gt; stimulus=std::nullopt)</td></tr>
+<tr class="separator:a4ee5cdb3bf39b58539ca5cb0127bbc24 inherit pub_methods_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -157,13 +157,25 @@ xt::xtensor&lt; double, DimParam+DimStim+1 &gt;&#160;</td><td class="memItemRigh
 <tr class="memitem:a527fcfe2dca66ff8b182ec1cb7fd7f2f inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="a527fcfe2dca66ff8b182ec1cb7fd7f2f"></a>
 std::array&lt; xt::xtensor&lt; double, 1 &gt;, DimStim &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stimuli</b></td></tr>
 <tr class="separator:a527fcfe2dca66ff8b182ec1cb7fd7f2f inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae71bfdd9a562d7f43b5c1537994e7398 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="ae71bfdd9a562d7f43b5c1537994e7398"></a>
+xt::xtensor&lt; double,(DimParam+DimStim+1)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>new_posterior</b></td></tr>
+<tr class="separator:ae71bfdd9a562d7f43b5c1537994e7398 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a082f86f8467606f7386f1921cdc8b720 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="a082f86f8467606f7386f1921cdc8b720"></a>
+xt::xtensor&lt; double, 1+DimStim &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pk</b></td></tr>
+<tr class="separator:a082f86f8467606f7386f1921cdc8b720 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5afad9ae7dd4c86c158bfec53ef1af9d inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="a5afad9ae7dd4c86c158bfec53ef1af9d"></a>
+xt::xtensor&lt; double, 1+DimStim &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>H</b></td></tr>
+<tr class="separator:a5afad9ae7dd4c86c158bfec53ef1af9d inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac9e834bc7088b952d39bc4b256cf178 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="aac9e834bc7088b952d39bc4b256cf178"></a>
+xt::xtensor&lt; double, DimStim &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>EH</b></td></tr>
+<tr class="separator:aac9e834bc7088b952d39bc4b256cf178 inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a516db818f9c856bf9a94c7bd841eee8e inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memItemLeft" align="right" valign="top"><a id="a516db818f9c856bf9a94c7bd841eee8e"></a>
 std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><b>rng</b></td></tr>
 <tr class="separator:a516db818f9c856bf9a94c7bd841eee8e inherit pro_attribs_classpsydapt_1_1questplus_1_1QuestPlusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classpsydapt_1_1Base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classpsydapt_1_1Base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classpsydapt_1_1Base.html">psydapt::Base&lt; DimStim &gt;</a></td></tr>
-<tr class="memitem:ab70e55bad7eba96860059c53d4011953 inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="ab70e55bad7eba96860059c53d4011953"></a>
-std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
-<tr class="separator:ab70e55bad7eba96860059c53d4011953 inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f4ee3acedf4b48af1ac8b400b86241 inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="a58f4ee3acedf4b48af1ac8b400b86241"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
+<tr class="separator:a58f4ee3acedf4b48af1ac8b400b86241 inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1891816698d74bb1fb8ddc30989ec4aa inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="a1891816698d74bb1fb8ddc30989ec4aa"></a>
 std::vector&lt; stim_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stimulus_history</b></td></tr>
 <tr class="separator:a1891816698d74bb1fb8ddc30989ec4aa inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>

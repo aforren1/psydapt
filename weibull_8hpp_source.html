@@ -136,7 +136,7 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">void</span> make_stimuli()</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                stimuli[0] = xt::adapt(settings.intensity, {settings.intensity.size()});</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                stimuli[0] = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.intensity, {settings.intensity.size()});</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            xt::xtensor&lt;double, Weibull::dim_param&gt; generate_prior()</div>
@@ -152,11 +152,11 @@ $(function() {
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            xt::xtensor&lt;double, Weibull::dim_param + Weibull::dim_stim + 1&gt; generate_likelihoods()</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            {</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                <span class="keyword">using</span> sz = std::array&lt;std::size_t, Weibull::dim_param + Weibull::dim_stim&gt;;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                <span class="keyword">auto</span> x = xt::adapt(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keyword">auto</span> thresh = xt::adapt(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keyword">auto</span> slope = xt::adapt(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keyword">auto</span> lower = xt::adapt(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keyword">auto</span> lapse = xt::adapt(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                <span class="keyword">auto</span> x = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keyword">auto</span> thresh = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keyword">auto</span> slope = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keyword">auto</span> lower = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keyword">auto</span> lapse = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                xt::xtensor&lt;double, Weibull::dim_param + Weibull::dim_stim&gt; p;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">switch</span> (settings.stim_scale)</div>
@@ -181,10 +181,10 @@ $(function() {
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abase_8hpp_html_a2c8e70e642b3ca34240a792d3d373624"><div class="ttname"><a href="base_8hpp.html#a2c8e70e642b3ca34240a792d3d373624">psydapt::Scale</a></div><div class="ttdeci">Scale</div><div class="ttdoc">Stimulus scale.</div><div class="ttdef"><b>Definition:</b> base.hpp:33</div></div>
-<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:77</div></div>
+<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:78</div></div>
 <div class="ttc" id="aclasspsydapt_1_1questplus_1_1Weibull_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1Weibull.html">psydapt::questplus::Weibull</a></div><div class="ttdef"><b>Definition:</b> weibull.hpp:41</div></div>
 <div class="ttc" id="aquestplus_8hpp_html"><div class="ttname"><a href="questplus_8hpp.html">questplus.hpp</a></div><div class="ttdoc">Class psydapt::questplus::QuestPlusBase.</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:68</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:69</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1Weibull_1_1Params_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1Weibull_1_1Params.html">psydapt::questplus::Weibull::Params</a></div><div class="ttdef"><b>Definition:</b> weibull.hpp:48</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1Weibull_1_1Params_html_a0879b0e994f6b5fe62f7ca0563c0954f"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1Weibull_1_1Params.html#a0879b0e994f6b5fe62f7ca0563c0954f">psydapt::questplus::Weibull::Params::lapse_rate_prior</a></div><div class="ttdeci">std::optional&lt; std::vector&lt; double &gt; &gt; lapse_rate_prior</div><div class="ttdoc">Prior over lower asymptote.</div><div class="ttdef"><b>Definition:</b> weibull.hpp:58</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1Weibull_1_1Params_html_a0f8962d77bcce8854f3ead834ddf3233"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1Weibull_1_1Params.html#a0f8962d77bcce8854f3ead834ddf3233">psydapt::questplus::Weibull::Params::slope</a></div><div class="ttdeci">std::vector&lt; double &gt; slope</div><div class="ttdoc">Array of possible threshold parameter values.</div><div class="ttdef"><b>Definition:</b> weibull.hpp:52</div></div>

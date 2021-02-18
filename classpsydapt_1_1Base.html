@@ -86,9 +86,9 @@ Public Member Functions</h2></td></tr>
 virtual stim_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1Base.html#ae17736a45f4e2af9491a53a82f6e949c">next</a> ()=0</td></tr>
 <tr class="memdesc:ae17736a45f4e2af9491a53a82f6e949c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the next stimulus (or stimuli) <br /></td></tr>
 <tr class="separator:ae17736a45f4e2af9491a53a82f6e949c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad539400f4096245324541f501739beba"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1Base.html#ad539400f4096245324541f501739beba">update</a> (unsigned int response, const std::optional&lt; stim_type &gt; stimulus=std::nullopt)=0</td></tr>
-<tr class="memdesc:ad539400f4096245324541f501739beba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state of the adaptive procedure.  <a href="classpsydapt_1_1Base.html#ad539400f4096245324541f501739beba">More...</a><br /></td></tr>
-<tr class="separator:ad539400f4096245324541f501739beba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b03a075bf17dc12f969b25288d6667"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">update</a> (int response, const std::optional&lt; stim_type &gt; stimulus=std::nullopt)=0</td></tr>
+<tr class="memdesc:ac3b03a075bf17dc12f969b25288d6667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state of the adaptive procedure.  <a href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">More...</a><br /></td></tr>
+<tr class="separator:ac3b03a075bf17dc12f969b25288d6667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -98,9 +98,9 @@ typedef std::conditional_t&lt;(DimStim &gt; 1), std::array&lt; double, DimStim &
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ab70e55bad7eba96860059c53d4011953"><td class="memItemLeft" align="right" valign="top"><a id="ab70e55bad7eba96860059c53d4011953"></a>
-std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
-<tr class="separator:ab70e55bad7eba96860059c53d4011953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f4ee3acedf4b48af1ac8b400b86241"><td class="memItemLeft" align="right" valign="top"><a id="a58f4ee3acedf4b48af1ac8b400b86241"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
+<tr class="separator:a58f4ee3acedf4b48af1ac8b400b86241"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1891816698d74bb1fb8ddc30989ec4aa"><td class="memItemLeft" align="right" valign="top"><a id="a1891816698d74bb1fb8ddc30989ec4aa"></a>
 std::vector&lt; stim_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stimulus_history</b></td></tr>
 <tr class="separator:a1891816698d74bb1fb8ddc30989ec4aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,8 +118,8 @@ class psydapt::Base&lt; DimStim &gt;</h3>
 <p><a class="el" href="classpsydapt_1_1Base.html" title="Base.">Base</a>. </p>
 <p>All adaptive procedures are derived from here, which defines the basic interface. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad539400f4096245324541f501739beba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad539400f4096245324541f501739beba">&#9670;&nbsp;</a></span>update()</h2>
+<a id="ac3b03a075bf17dc12f969b25288d6667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3b03a075bf17dc12f969b25288d6667">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,7 +132,7 @@ template&lt;std::size_t DimStim = 1&gt; </div>
         <tr>
           <td class="memname">virtual bool <a class="el" href="classpsydapt_1_1Base.html">psydapt::Base</a>&lt; DimStim &gt;::update </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>response</em>, </td>
         </tr>
         <tr>

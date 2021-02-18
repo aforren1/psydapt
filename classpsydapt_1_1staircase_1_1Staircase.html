@@ -111,13 +111,13 @@ Public Member Functions</h2></td></tr>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1staircase_1_1Staircase.html#adeaca1ac5767f25564a47296c230deb4">next</a> ()</td></tr>
 <tr class="memdesc:adeaca1ac5767f25564a47296c230deb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the next stimulus (or stimuli) <br /></td></tr>
 <tr class="separator:adeaca1ac5767f25564a47296c230deb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa9f8da35ae7640e67f6311798e0a141"><td class="memItemLeft" align="right" valign="top"><a id="aaa9f8da35ae7640e67f6311798e0a141"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (unsigned int value, std::optional&lt; double &gt; stimulus=std::nullopt)</td></tr>
-<tr class="separator:aaa9f8da35ae7640e67f6311798e0a141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6978dc188d4a44fbf37debc7938ddb99"><td class="memItemLeft" align="right" valign="top"><a id="a6978dc188d4a44fbf37debc7938ddb99"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int response, std::optional&lt; double &gt; stimulus=std::nullopt)</td></tr>
+<tr class="separator:a6978dc188d4a44fbf37debc7938ddb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classpsydapt_1_1Base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpsydapt_1_1Base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classpsydapt_1_1Base.html">psydapt::Base&lt; 1 &gt;</a></td></tr>
-<tr class="memitem:ad539400f4096245324541f501739beba inherit pub_methods_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1Base.html#ad539400f4096245324541f501739beba">update</a> (unsigned int response, const std::optional&lt; stim_type &gt; stimulus=std::nullopt)=0</td></tr>
-<tr class="memdesc:ad539400f4096245324541f501739beba inherit pub_methods_classpsydapt_1_1Base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state of the adaptive procedure.  <a href="classpsydapt_1_1Base.html#ad539400f4096245324541f501739beba">More...</a><br /></td></tr>
-<tr class="separator:ad539400f4096245324541f501739beba inherit pub_methods_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b03a075bf17dc12f969b25288d6667 inherit pub_methods_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">update</a> (int response, const std::optional&lt; stim_type &gt; stimulus=std::nullopt)=0</td></tr>
+<tr class="memdesc:ac3b03a075bf17dc12f969b25288d6667 inherit pub_methods_classpsydapt_1_1Base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state of the adaptive procedure.  <a href="classpsydapt_1_1Base.html#ac3b03a075bf17dc12f969b25288d6667">More...</a><br /></td></tr>
+<tr class="separator:ac3b03a075bf17dc12f969b25288d6667 inherit pub_methods_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -126,9 +126,9 @@ Additional Inherited Members</h2></td></tr>
 typedef std::conditional_t&lt;(DimStim &gt; 1), std::array&lt; double, DimStim &gt;, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stim_type</b></td></tr>
 <tr class="separator:aca0a5f93899b5cd3a40283743d8640e9 inherit pro_types_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classpsydapt_1_1Base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classpsydapt_1_1Base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classpsydapt_1_1Base.html">psydapt::Base&lt; 1 &gt;</a></td></tr>
-<tr class="memitem:ab70e55bad7eba96860059c53d4011953 inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="ab70e55bad7eba96860059c53d4011953"></a>
-std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
-<tr class="separator:ab70e55bad7eba96860059c53d4011953 inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f4ee3acedf4b48af1ac8b400b86241 inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="a58f4ee3acedf4b48af1ac8b400b86241"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>response_history</b></td></tr>
+<tr class="separator:a58f4ee3acedf4b48af1ac8b400b86241 inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1891816698d74bb1fb8ddc30989ec4aa inherit pro_attribs_classpsydapt_1_1Base"><td class="memItemLeft" align="right" valign="top"><a id="a1891816698d74bb1fb8ddc30989ec4aa"></a>
 std::vector&lt; stim_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stimulus_history</b></td></tr>
 <tr class="separator:a1891816698d74bb1fb8ddc30989ec4aa inherit pro_attribs_classpsydapt_1_1Base"><td class="memSeparator" colspan="2">&#160;</td></tr>
