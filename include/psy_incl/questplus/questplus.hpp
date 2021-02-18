@@ -35,6 +35,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include "xtensor/xsort.hpp"
 #include "xtensor/xmath.hpp"
 #include "xtensor/xutils.hpp"
+#include "xtensor/xnoalias.hpp"
 
 /** @file
  * @brief Class @ref psydapt::questplus::QuestPlusBase
@@ -81,17 +82,20 @@ namespace psydapt
 
             stim_type next()
             {
-                xt::xtensor<double, (DimParam + DimStim + 1)> new_posterior = posterior * likelihoods;
+                new_posterior = xt::eval(posterior * likelihoods);
                 std::array<std::size_t, DimParam> param_idx;
                 std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);
-                auto pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);
-                xt::transpose(new_posterior) /= xt::transpose(pk);
+                pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);
+                const auto pkt = xt::transpose(pk);
+                auto postt = xt::transpose(new_posterior);
+                xt::noalias(postt) = postt / pkt;
+                // xt::transpose(new_posterior) /= xt::transpose(pk);
 
                 // entropy
-                auto H = -xt::nansum((new_posterior * xt::log(new_posterior)), param_idx,
-                                     xt::evaluation_strategy::immediate);
+                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx,
+                                xt::evaluation_strategy::immediate);
                 // expected entropies for stimuli
-                auto EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
+                EH = xt::sum(xt::eval(pk * H), 0, xt::evaluation_strategy::immediate);
                 // TODO: just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
                 if constexpr (std::is_scalar_v<stim_type>)
@@ -101,18 +105,16 @@ namespace psydapt
                 else
                 {
                     auto indices = xt::unravel_index(xt::argmin(EH)(), EH.shape(), xt::layout_type::row_major);
-                    stim_type out;
                     for (std::size_t i = 0; i < DimStim; i++)
                     {
-                        out[i] = stimuli[i][indices[i]];
-                        this->next_stimulus[i] = out[i];
+                        this->next_stimulus[i] = stimuli[i][indices[i]];
                     }
                 }
                 return this->next_stimulus;
             }
-            bool update(unsigned int response, std::optional<stim_type> stimulus = std::nullopt)
+            bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
-                if (response >= n_resp)
+                if (response < 0 || static_cast<unsigned int>(response) >= n_resp)
                 {
                     using namespace std::string_literals;
                     throw std::invalid_argument("The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
@@ -160,6 +162,10 @@ namespace psydapt
             xt::xtensor<double, DimParam> posterior;
             xt::xtensor<double, DimParam + DimStim + 1> likelihoods;
             std::array<xt::xtensor<double, 1>, DimStim> stimuli;
+            xt::xtensor<double, (DimParam + DimStim + 1)> new_posterior;
+            xt::xtensor<double, 1 + DimStim> pk;
+            xt::xtensor<double, 1 + DimStim> H;
+            xt::xtensor<double, DimStim> EH;
             std::mt19937 rng; // for 'min_n_entropy'
 
             void setup()
@@ -191,7 +197,7 @@ namespace psydapt
                     {
                         throw std::invalid_argument("The prior and parameter domain sizes must match.");
                     }
-                    out_prior = xt::adapt(tp, prior_shape);
+                    out_prior = xt::adapt<xt::layout_type::row_major>(tp, prior_shape);
                 }
                 else
                 {

@@ -68,7 +68,7 @@ namespace psydapt
 
             void make_stimuli()
             {
-                stimuli[0] = xt::adapt(settings.intensity, {settings.intensity.size()});
+                stimuli[0] = xt::adapt<xt::layout_type::row_major>(settings.intensity, {settings.intensity.size()});
             }
 
             xt::xtensor<double, Weibull::dim_param> generate_prior()
@@ -84,11 +84,11 @@ namespace psydapt
             xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim + 1> generate_likelihoods()
             {
                 using sz = std::array<std::size_t, Weibull::dim_param + Weibull::dim_stim>;
-                auto x = xt::adapt(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
-                auto thresh = xt::adapt(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});
-                auto slope = xt::adapt(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});
-                auto lower = xt::adapt(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
-                auto lapse = xt::adapt(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
+                auto x = xt::adapt<xt::layout_type::row_major>(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
+                auto thresh = xt::adapt<xt::layout_type::row_major>(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});
+                auto slope = xt::adapt<xt::layout_type::row_major>(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});
+                auto lower = xt::adapt<xt::layout_type::row_major>(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
+                auto lapse = xt::adapt<xt::layout_type::row_major>(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
 
                 xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim> p;
                 switch (settings.stim_scale)

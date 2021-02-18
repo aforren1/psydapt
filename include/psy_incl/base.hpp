@@ -47,7 +47,7 @@ namespace psydapt
 
     protected:
         typedef std::conditional_t<(DimStim > 1), std::array<double, DimStim>, double> stim_type;
-        std::vector<unsigned int> response_history;
+        std::vector<int> response_history;
         std::vector<stim_type> stimulus_history;
         stim_type next_stimulus; // if stimulus not passed in update, use this
         bool should_continue = true;
@@ -63,7 +63,7 @@ namespace psydapt
          * 
          * @return Whether to continue the procedure or not.
         */
-        virtual bool update(unsigned int response, const std::optional<stim_type> stimulus = std::nullopt) = 0;
+        virtual bool update(int response, const std::optional<stim_type> stimulus = std::nullopt) = 0;
     };
 } // namespace psydapt
 #endif

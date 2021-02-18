@@ -18,3 +18,15 @@ cmake --build build (--config Release) (--parallel n)
 ```
 
 Run tests with `ctest -V -C <Debug/Release>` from the build directory.
+
+For gprof:
+
+```
+cmake -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release
+```
+
+callgrind:
+
+```
+valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes ./<exe>
+```

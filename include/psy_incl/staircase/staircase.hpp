@@ -159,17 +159,17 @@ namespace psydapt
                 return next_stimulus;
             }
 
-            bool update(unsigned int value, std::optional<double> stimulus = std::nullopt)
+            bool update(int response, std::optional<double> stimulus = std::nullopt)
             {
                 // update history of stimulus/response
                 // if the user provides an stimulus value, use that
                 // otherwise, fill in the last generated one
                 stimulus_history.push_back(stimulus ? *stimulus : next_stimulus);
-                response_history.push_back(value);
+                response_history.push_back(response);
 
-                if (value)
+                if (response)
                 {
-                    if (response_history.size() > 1 && response_history.end()[-2] == value)
+                    if (response_history.size() > 1 && response_history.end()[-2] == response)
                     {
                         correct_count++;
                     }
@@ -180,7 +180,7 @@ namespace psydapt
                 }
                 else
                 {
-                    if (response_history.size() > 1 && response_history.end()[-2] == value)
+                    if (response_history.size() > 1 && response_history.end()[-2] == response)
                     {
                         correct_count--;
                     }

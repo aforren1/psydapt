@@ -78,9 +78,9 @@ namespace psydapt
 
             void make_stimuli()
             {
-                stimuli[0] = xt::adapt(settings.contrast, {settings.contrast.size()});
-                stimuli[1] = xt::adapt(settings.spatial_freq, {settings.spatial_freq.size()});
-                stimuli[2] = xt::adapt(settings.temporal_freq, {settings.temporal_freq.size()});
+                stimuli[0] = xt::adapt<xt::layout_type::row_major>(settings.contrast, {settings.contrast.size()});
+                stimuli[1] = xt::adapt<xt::layout_type::row_major>(settings.spatial_freq, {settings.spatial_freq.size()});
+                stimuli[2] = xt::adapt<xt::layout_type::row_major>(settings.temporal_freq, {settings.temporal_freq.size()});
             }
 
             xt::xtensor<double, CSF::dim_param> generate_prior()
@@ -101,18 +101,19 @@ namespace psydapt
                 // (7 param, 3 stim)
                 const Params &set = settings;
                 using sz = std::array<std::size_t, CSF::dim_param + CSF::dim_stim>;
+                // const auto &row_major = xt::layout_type::row_major;
                 // stim
-                auto x = xt::adapt(set.contrast, sz{set.contrast.size(), 1, 1, 1, 1, 1, 1, 1, 1, 1});
-                auto f = xt::adapt(set.spatial_freq, sz{1, set.spatial_freq.size(), 1, 1, 1, 1, 1, 1, 1, 1});
-                auto w = xt::adapt(set.temporal_freq, sz{1, 1, set.temporal_freq.size(), 1, 1, 1, 1, 1, 1, 1});
+                auto x = xt::adapt<xt::layout_type::row_major>(set.contrast, sz{set.contrast.size(), 1, 1, 1, 1, 1, 1, 1, 1, 1});
+                auto f = xt::adapt<xt::layout_type::row_major>(set.spatial_freq, sz{1, set.spatial_freq.size(), 1, 1, 1, 1, 1, 1, 1, 1});
+                auto w = xt::adapt<xt::layout_type::row_major>(set.temporal_freq, sz{1, 1, set.temporal_freq.size(), 1, 1, 1, 1, 1, 1, 1});
                 // param
-                auto c0 = xt::adapt(set.c0, sz{1, 1, 1, set.c0.size(), 1, 1, 1, 1, 1, 1});
-                auto cf = xt::adapt(set.cf, sz{1, 1, 1, 1, set.cf.size(), 1, 1, 1, 1, 1});
-                auto cw = xt::adapt(set.cw, sz{1, 1, 1, 1, 1, set.cw.size(), 1, 1, 1, 1});
-                auto min_thresh = xt::adapt(set.min_thresh, sz{1, 1, 1, 1, 1, 1, set.min_thresh.size(), 1, 1, 1});
-                auto slope = xt::adapt(set.slope, sz{1, 1, 1, 1, 1, 1, 1, set.slope.size(), 1, 1});
-                auto lower = xt::adapt(set.lower_asymptote, sz{1, 1, 1, 1, 1, 1, 1, 1, set.lower_asymptote.size(), 1});
-                auto lapse = xt::adapt(set.lapse_rate, sz{1, 1, 1, 1, 1, 1, 1, 1, 1, set.lapse_rate.size()});
+                auto c0 = xt::adapt<xt::layout_type::row_major>(set.c0, sz{1, 1, 1, set.c0.size(), 1, 1, 1, 1, 1, 1});
+                auto cf = xt::adapt<xt::layout_type::row_major>(set.cf, sz{1, 1, 1, 1, set.cf.size(), 1, 1, 1, 1, 1});
+                auto cw = xt::adapt<xt::layout_type::row_major>(set.cw, sz{1, 1, 1, 1, 1, set.cw.size(), 1, 1, 1, 1});
+                auto min_thresh = xt::adapt<xt::layout_type::row_major>(set.min_thresh, sz{1, 1, 1, 1, 1, 1, set.min_thresh.size(), 1, 1, 1});
+                auto slope = xt::adapt<xt::layout_type::row_major>(set.slope, sz{1, 1, 1, 1, 1, 1, 1, set.slope.size(), 1, 1});
+                auto lower = xt::adapt<xt::layout_type::row_major>(set.lower_asymptote, sz{1, 1, 1, 1, 1, 1, 1, 1, set.lower_asymptote.size(), 1});
+                auto lapse = xt::adapt<xt::layout_type::row_major>(set.lapse_rate, sz{1, 1, 1, 1, 1, 1, 1, 1, 1, set.lapse_rate.size()});
 
                 auto t = xt::maximum(min_thresh, c0 + cf * f + cw * w);
                 xt::xtensor<double, CSF::dim_param + CSF::dim_stim> p;
