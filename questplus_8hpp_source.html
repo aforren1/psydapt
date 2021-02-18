@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx,</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                xt::evaluation_strategy::immediate);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                <span class="comment">// expected entropies for stimuli</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                EH = xt::sum(xt::eval(pk * H), 0, xt::evaluation_strategy::immediate);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                <span class="comment">// TODO: just do min_entropy by default until figure out retrieving settings</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="comment">// find index of minimum entropy, then figure out which stimuli are there</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
