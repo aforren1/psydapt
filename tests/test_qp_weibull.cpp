@@ -5,22 +5,22 @@
 
 using namespace Corrade;
 
-struct TestQuestPlus : TestSuite::Tester
+struct TestQPWeibull : TestSuite::Tester
 {
-    explicit TestQuestPlus();
+    explicit TestQPWeibull();
 
     void threshold();
     void nextAndUpdate();
 };
 
-TestQuestPlus::TestQuestPlus()
+TestQPWeibull::TestQPWeibull()
 {
-    addTests({&TestQuestPlus::threshold});
-    addBenchmarks({&TestQuestPlus::nextAndUpdate}, 10);
+    addTests({&TestQPWeibull::threshold});
+    addBenchmarks({&TestQPWeibull::nextAndUpdate}, 10);
 }
 
 // mostly https://github.com/hoechenberger/questplus/blob/main/questplus/tests/test_qp.py#L8
-void TestQuestPlus::threshold()
+void TestQPWeibull::threshold()
 {
     using namespace psydapt::questplus;
     Weibull::Params p;
@@ -56,34 +56,32 @@ void TestQuestPlus::threshold()
     CORRADE_COMPARE_AS(pred_contrasts, expected_contrasts, TestSuite::Compare::Container);
 }
 
-void TestQuestPlus::nextAndUpdate()
+void TestQPWeibull::nextAndUpdate()
 {
+    using namespace psydapt::questplus;
+    Weibull::Params p;
+    p.threshold = {-40, -39, -38, -37, -36, -35, -34, -33, -32, -31, -30, -29, -28,
+                   -27, -26, -25, -24, -23, -22, -21, -20, -19, -18, -17, -16, -15,
+                   -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2,
+                   -1, 0};
+    p.intensity = p.threshold;
+    p.slope = {3.5};
+    p.lower_asymptote = {0.5};
+    p.lapse_rate = {0.02};
+    p.stim_scale = psydapt::Scale::dB;
+
+    Weibull weibull{p};
+
+    double a{};
+    CORRADE_BENCHMARK(10)
     {
-        using namespace psydapt::questplus;
-        Weibull::Params p;
-        p.threshold = {-40, -39, -38, -37, -36, -35, -34, -33, -32, -31, -30, -29, -28,
-                       -27, -26, -25, -24, -23, -22, -21, -20, -19, -18, -17, -16, -15,
-                       -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2,
-                       -1, 0};
-        p.intensity = p.threshold;
-        p.slope = {3.5};
-        p.lower_asymptote = {0.5};
-        p.lapse_rate = {0.02};
-        p.stim_scale = psydapt::Scale::dB;
-
-        Weibull weibull{p};
-
-        double a{};
-        CORRADE_BENCHMARK(10)
+        for (std::size_t i = 0; i < 100; i++)
         {
-            for (std::size_t i = 0; i < 100; i++)
-            {
-                a += weibull.next();
-                weibull.update(i % 2);
-            }
+            a += weibull.next();
+            weibull.update(i % 2);
         }
-
-        CORRADE_VERIFY(a);
     }
+
+    CORRADE_VERIFY(a);
 }
-CORRADE_TEST_MAIN(TestQuestPlus)
+CORRADE_TEST_MAIN(TestQPWeibull)

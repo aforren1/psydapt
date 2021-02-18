@@ -95,7 +95,7 @@ namespace psydapt
                 H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx,
                                 xt::evaluation_strategy::immediate);
                 // expected entropies for stimuli
-                EH = xt::sum(xt::eval(pk * H), 0, xt::evaluation_strategy::immediate);
+                EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
                 // TODO: just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
                 if constexpr (std::is_scalar_v<stim_type>)
