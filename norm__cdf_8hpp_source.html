@@ -173,7 +173,7 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    p = lower + (1 - lower - lapse) * detail::vec_norm_cdf((x - loc) / scale);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;Only &#39;Linear&#39; stimulus scale is implemented for NormCDF.&quot;</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    PSYDAPT_THROW(std::invalid_argument, <span class="stringliteral">&quot;Only &#39;Linear&#39; stimulus scale is implemented for NormCDF.&quot;</span>);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                }</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordflow">return</span> xt::stack(xt::xtuple(1.0 - p, p));</div>
