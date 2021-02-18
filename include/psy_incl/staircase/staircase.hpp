@@ -89,7 +89,7 @@ namespace psydapt
 
                 if (!should_continue)
                 {
-                    throw std::runtime_error("The staircase has already finished.");
+                    PSYDAPT_THROW(std::runtime_error, "The staircase has already finished.");
                 }
 
                 // asking for trial #2, use 1-down, 1-up rule

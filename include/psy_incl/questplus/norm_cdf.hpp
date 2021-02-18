@@ -105,7 +105,7 @@ namespace psydapt
                     p = lower + (1 - lower - lapse) * detail::vec_norm_cdf((x - loc) / scale);
                     break;
                 default:
-                    throw std::invalid_argument("Only 'Linear' stimulus scale is implemented for NormCDF.");
+                    PSYDAPT_THROW(std::invalid_argument, "Only 'Linear' stimulus scale is implemented for NormCDF.");
                     break;
                 }
                 return xt::stack(xt::xtuple(1.0 - p, p));

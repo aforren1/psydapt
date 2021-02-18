@@ -114,10 +114,10 @@ namespace psydapt
             }
             bool update(int response, std::optional<stim_type> stimulus = std::nullopt)
             {
-                if (response < 0 || static_cast<unsigned int>(response) >= n_resp)
+                if (response < 0 || static_cast<std::size_t>(response) >= n_resp)
                 {
                     using namespace std::string_literals;
-                    throw std::invalid_argument("The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
+                    PSYDAPT_THROW(std::invalid_argument, "The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
                 }
                 this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
                 this->response_history.push_back(response);
@@ -195,7 +195,7 @@ namespace psydapt
                     auto &tp = *prior;
                     if (tp.size() != param_size)
                     {
-                        throw std::invalid_argument("The prior and parameter domain sizes must match.");
+                        PSYDAPT_THROW(std::invalid_argument, "The prior and parameter domain sizes must match.");
                     }
                     out_prior = xt::adapt<xt::layout_type::row_major>(tp, prior_shape);
                 }

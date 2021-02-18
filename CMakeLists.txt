@@ -1,17 +1,30 @@
 cmake_minimum_required(VERSION 3.1)
-project(psydapt VERSION 0.1.2)
+project(psydapt)
+
+set(PSYDAPT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+file(STRINGS "${PSYDAPT_INCLUDE_DIR}/config.hpp" psydapt_version_defines
+     REGEX "#define PSYDAPT_VERSION_(MAJOR|MINOR|PATCH)")
+
+foreach(ver ${psydapt_version_defines})
+  if(ver MATCHES "#define PSYDAPT_VERSION_(MAJOR|MINOR|PATCH) +([^ ]+)$")
+    set(PSYDAPT_VERSION_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}" CACHE INTERNAL "")
+  endif()
+endforeach()
+set(${PROJECT_NAME}_VERSION
+    ${PSYDAPT_VERSION_MAJOR}.${PSYDAPT_VERSION_MINOR}.${PSYDAPT_VERSION_PATCH})
+message(STATUS "Building psydapt v${${PROJECT_NAME}_VERSION}")
+
 set(CMAKE_CXX_STANDARD 17) # std::optional (and many other things)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-configure_file("${PROJECT_SOURCE_DIR}/include/config.hpp.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/config.hpp")
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
-add_subdirectory(ext)
+add_subdirectory(submodules)
 
 option(PSYDAPT_BUILD_TESTS "Build unit tests" OFF)
 option(PSYDAPT_BUILD_SCRATCH "Build scratch files" OFF)
+option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" ON)
 
 add_library(psydapt INTERFACE)
 target_link_libraries(psydapt INTERFACE xtensor)
@@ -34,11 +47,9 @@ if (PSYDAPT_BUILD_SCRATCH)
     add_executable(XTensScratch ${PROJECT_SOURCE_DIR}/xtensor_scratch.cpp)
     target_link_libraries(XTensScratch PUBLIC psydapt)
 
+    add_executable(TestCSF "${PROJECT_SOURCE_DIR}/scratch/test_csf.cpp")
+    target_link_libraries(TestCSF PUBLIC psydapt)
 endif()
-
-
-add_executable(TestCSF "${PROJECT_SOURCE_DIR}/scratch/test_csf.cpp")
-target_link_libraries(TestCSF PUBLIC psydapt)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND PSYDAPT_BUILD_TESTS AND NOT EMSCRIPTEN)
     enable_testing()

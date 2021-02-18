@@ -1,12 +1,12 @@
 [submodule "ext/corrade"]
-	path = ext/corrade
+	path = submodules/corrade
 	url = https://github.com/mosra/corrade
 [submodule "ext/xtensor"]
-	path = ext/xtensor
+	path = submodules/xtensor
 	url = https://github.com/xtensor-stack/xtensor
 [submodule "ext/xtl"]
-	path = ext/xtl
+	path = submodules/xtl
 	url = https://github.com/xtensor-stack/xtl
 [submodule "ext/xsimd"]
-	path = ext/xsimd
+	path = submodules/xsimd
 	url = https://github.com/xtensor-stack/xsimd
