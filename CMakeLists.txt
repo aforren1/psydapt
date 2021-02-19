@@ -24,7 +24,7 @@ add_subdirectory(submodules)
 
 option(PSYDAPT_BUILD_TESTS "Build unit tests" OFF)
 option(PSYDAPT_BUILD_SCRATCH "Build scratch files" OFF)
-option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" ON)
+option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" OFF)
 
 add_library(psydapt INTERFACE)
 target_link_libraries(psydapt INTERFACE xtensor)
