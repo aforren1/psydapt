@@ -28,6 +28,7 @@ option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" OFF)
 
 add_library(psydapt INTERFACE)
 target_link_libraries(psydapt INTERFACE xtensor)
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -mavx2 -ffast-math -funroll-loops")
 target_include_directories(psydapt
     INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -37,18 +38,22 @@ target_include_directories(psydapt
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 # just temporary test files
+set(PSYDAPT_SCRATCH_DIR "${PROJECT_SOURCE_DIR}/scratch/")
 if (PSYDAPT_BUILD_SCRATCH)
-    add_executable(Test ${PROJECT_SOURCE_DIR}/stest.cpp)
+    add_executable(Test ${PSYDAPT_SCRATCH_DIR}/test.cpp)
     target_link_libraries(Test PUBLIC psydapt)
 
-    add_executable(TestQP ${PROJECT_SOURCE_DIR}/test_quest.cpp)
+    add_executable(TestQP ${PSYDAPT_SCRATCH_DIR}/test_quest.cpp)
     target_link_libraries(TestQP PUBLIC psydapt)
 
-    add_executable(XTensScratch ${PROJECT_SOURCE_DIR}/xtensor_scratch.cpp)
+    add_executable(XTensScratch ${PSYDAPT_SCRATCH_DIR}/xtensor_scratch.cpp)
     target_link_libraries(XTensScratch PUBLIC psydapt)
 
-    add_executable(TestCSF "${PROJECT_SOURCE_DIR}/scratch/test_csf.cpp")
+    add_executable(TestCSF ${PSYDAPT_SCRATCH_DIR}/test_csf.cpp)
     target_link_libraries(TestCSF PUBLIC psydapt)
+    
+    add_executable(XTensScratch ${PSYDAPT_SCRATCH_DIR}/xtensor_scratch.cpp)
+    target_link_libraries(XTensScratch PUBLIC psydapt)
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND PSYDAPT_BUILD_TESTS AND NOT EMSCRIPTEN)

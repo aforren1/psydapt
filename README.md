@@ -14,7 +14,7 @@ Notes to self for building:
 ```
 cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release
 
-cmake --build build (--config Release) (--parallel n)
+cmake --build build --parallel 4 (--config Release)
 ```
 
 Run tests with `ctest -V -C <Debug/Release>` from the build directory.

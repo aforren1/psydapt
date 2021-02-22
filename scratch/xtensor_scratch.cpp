@@ -1,31 +1,56 @@
-#include <iostream>
-#include <array>
-#include <tuple>
-
-#include "xtensor/xarray.hpp"
-#include "xtensor/xio.hpp"
+#include "xtensor/xtensor.hpp"
 #include "xtensor/xview.hpp"
-#include "xtensor/xstrided_view.hpp"
+#include "xtensor/xio.hpp"
+#include "xtensor/xrandom.hpp"
+#include <array>
+#include <chrono>
+#include <iostream>
+
+// numpy is 100us
+// matching shapes is 500us
+// naive is 2-5ms
+using namespace std::chrono;
+
 int main()
 {
-    xt::xarray<double> arr1{{{1.0, 2.0, 3.0},
-                             {2.0, 5.0, 7.0},
-                             {2.0, 5.0, 8.0}}};
+    constexpr unsigned int reps = 100;
+    std::array<std::size_t, 8> shp1 = {2, 10, 5, 4, 2, 5, 5, 8};
+    std::array<std::size_t, 6> shp2 = {5, 4, 2, 5, 5, 8};
 
-    std::array<std::size_t, 2> foo{0, 2};
-    auto bah = std::apply([arr1](auto &&...xs) { return xt::view(arr1, xs...); }, foo);
-    // auto bum = xt::view(arr1, 0, 0, 1);
+    xt::xtensor<double, 8> f1 = xt::xtensor<double, 8>::from_shape(shp1);
+    f1 = xt::eval(xt::random::randn<double>(shp1));
+    xt::xtensor<double, 6> f2 = xt::xtensor<double, 6>::from_shape(shp2);
+    f2 = xt::eval(xt::random::randn<double>(shp2));
 
-    // auto bar = xt::view(arr1, 0, xt::all());
-    // bar = xt::view(bar, 0, xt::all());
-    // bar = xt::view(bar, 1, xt::all());
+    xt::xtensor<double, 8> f3 = xt::xtensor<double, 8>::from_shape(shp1);
+    xt::xtensor<double, 8> f4 = xt::xtensor<double, 8>::from_shape(shp1);
 
-    // xt::xstrided_slice_vector sv({0, 1});
+    //xt::xtensor<double, 6> slc;
+    auto shp = f1.shape();
+    auto start = high_resolution_clock::now();
+    for (auto n = 0; n < reps; n++)
+    {
+        for (auto i = 0; i < shp[0]; i++)
+        {
+            for (auto j = 0; j < shp[1]; j++)
+            {
+                //auto slc = xt::view(f1, i, j);
+                //auto out = xt::view(f3, i, j);
+                xt::view(f3, i, j) = xt::view(f1, i, j) * f2;
+            }
+        }
+    }
+    auto stop = high_resolution_clock::now();
 
-    // auto baz = xt::strided_view(bar, sv);
+    auto start2 = high_resolution_clock::now();
+    for (auto n = 0; n < reps; n++)
+    {
+        f4 = xt::eval(f1 * f2);
+    }
+    auto stop2 = high_resolution_clock::now();
 
-    std::cout << bah << std::endl;
-    // std::cout << bum << std::endl;
-    // std::cout << xt::view(bar, 0) << std::endl;
-    // std::cout << baz << std::endl;
+    std::cout << (f3 == f4) << std::endl;
+
+    std::cout << "new: " << (duration_cast<microseconds>(stop - start).count() / reps) << std::endl;
+    std::cout << "old: " << (duration_cast<microseconds>(stop2 - start2).count() / reps) << std::endl;
 }

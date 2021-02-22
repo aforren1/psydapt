@@ -27,6 +27,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <numeric>
 #include <string>
 #include <tuple>
+#include <iostream>
 
 #include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
@@ -46,6 +47,24 @@ namespace psydapt
 {
     namespace questplus
     {
+        namespace detail
+        {
+            // https://stackoverflow.com/a/27568312/2690232
+            template <std::size_t Num>
+            bool increment(std::array<std::size_t, Num> &v, std::array<std::size_t, Num> &upper)
+            {
+                for (auto i = v.size(); i-- != 0;)
+                {
+                    ++v[i];
+                    if (v[i] != upper[i])
+                    {
+                        return true;
+                    }
+                    v[i] = 0;
+                }
+                return false;
+            }
+        }
         /** @brief Stimulus selection method.
          *  
          * `MinNEntropy` is currently ignored.
@@ -82,7 +101,36 @@ namespace psydapt
 
             stim_type next()
             {
-                new_posterior = xt::eval(posterior * likelihoods);
+                // new_posterior = xt::eval(posterior * likelihoods);
+                // this way allows us to appeal to the fact that all latter dimensions
+                // match, so we can use the fast broadcasting
+                const auto shp = likelihoods.shape();
+                if constexpr (std::is_scalar_v<stim_type>)
+                {
+                    for (unsigned int i = 0; i < shp[0]; i++)
+                    {
+                        for (unsigned int j = 0; j < shp[1]; j++)
+                        {
+                            xt::view(new_posterior, i, j) = xt::view(likelihoods, i, j) * posterior;
+                        }
+                    }
+                }
+                else
+                {
+                    std::array<std::size_t, DimStim + 1> upper;
+                    std::array<std::size_t, DimStim + 1> idx{0};
+                    upper[0] = shp[0];
+                    for (unsigned int i = 0; i < DimStim; i++)
+                    {
+                        upper[i + 1] = shp[i + 1];
+                    }
+                    do
+                    {
+                        auto tmp_posterior = std::apply([&np = this->new_posterior](auto &&...xs) { return xt::view(np, xs...); }, idx);
+                        auto tmp_likelihood = std::apply([&lk = this->likelihoods](auto &&...xs) { return xt::view(lk, xs...); }, idx);
+                        tmp_posterior = tmp_likelihood * posterior;
+                    } while (detail::increment<DimStim + 1>(idx, upper));
+                }
                 std::array<std::size_t, DimParam> param_idx;
                 std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);
                 pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);
@@ -92,8 +140,7 @@ namespace psydapt
                 // xt::transpose(new_posterior) /= xt::transpose(pk);
 
                 // entropy
-                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx,
-                                xt::evaluation_strategy::immediate);
+                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx, xt::evaluation_strategy::immediate);
                 // expected entropies for stimuli
                 EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
                 // TODO: just do min_entropy by default until figure out retrieving settings
@@ -141,10 +188,10 @@ namespace psydapt
                     {
                         idx[i] = xt::argmin(xt::abs(stimuli[i] - last_stim[i]))[0];
                     }
-                    likelihood = std::apply([likelihood2](auto &&...xs) { return xt::view(likelihood2, xs...); }, idx);
+                    likelihood = std::apply([&likelihood2](auto &&...xs) { return xt::view(likelihood2, xs...); }, idx);
                 }
-                posterior *= likelihood;
-                posterior /= xt::sum(posterior, xt::evaluation_strategy::immediate);
+                xt::noalias(posterior) = xt::eval(posterior * likelihood);
+                xt::noalias(posterior) = xt::eval(posterior / xt::sum(posterior, xt::evaluation_strategy::immediate));
 
                 return true; // unconditionally continue for now
             }
@@ -162,7 +209,7 @@ namespace psydapt
             xt::xtensor<double, DimParam> posterior;
             xt::xtensor<double, DimParam + DimStim + 1> likelihoods;
             std::array<xt::xtensor<double, 1>, DimStim> stimuli;
-            xt::xtensor<double, (DimParam + DimStim + 1)> new_posterior;
+            xt::xtensor<double, DimParam + DimStim + 1> new_posterior;
             xt::xtensor<double, 1 + DimStim> pk;
             xt::xtensor<double, 1 + DimStim> H;
             xt::xtensor<double, DimStim> EH;
@@ -171,9 +218,10 @@ namespace psydapt
             void setup()
             {
                 // everything else for init, post-assigning settings
-                prior = generate_prior();
+                prior = xt::eval(generate_prior());
                 posterior = prior;
-                likelihoods = generate_likelihoods();
+                likelihoods = xt::eval(generate_likelihoods());
+                new_posterior = xt::xtensor<double, DimParam + DimStim + 1>::from_shape(likelihoods.shape());
                 make_stimuli();
                 // TODO: pick something smarter, once we incorporate termination conditions
                 this->response_history.reserve(500);
