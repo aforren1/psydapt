@@ -7,9 +7,9 @@
 
 #if defined(PSYDAPT_DISABLE_EXCEPTIONS)
 #if defined(__EMSCRIPTEN__)
-#define PSYDAPT_THROW(_, msg)  \
-    {                          \
-        EM_ASM({ throw msg; }) \
+#define PSYDAPT_THROW(_, msg)   \
+    {                           \
+        EM_ASM({ throw msg; }); \
     }
 #else
 #include <iostream>
