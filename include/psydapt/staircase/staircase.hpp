@@ -23,6 +23,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <vector>
 #include <optional>
 
+#include "../../config.hpp"
 #include "../base.hpp"
 
 /** @file
@@ -235,7 +236,7 @@ namespace psydapt
                 switch (settings.stim_scale)
                 {
                 case Scale::dB:
-                    next_stimulus /= std::pow(10.0, step_size / 20.0);
+                    next_stimulus /= std::pow(10.0, step_size * 0.05);
                     break;
                 case Scale::Log10:
                     next_stimulus /= std::pow(10.0, step_size);

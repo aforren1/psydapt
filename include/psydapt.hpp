@@ -18,10 +18,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 */
-#include "config.hpp"
-#include "psy_incl/staircase/staircase.hpp"
-#include "psy_incl/questplus/weibull.hpp"
-#include "psy_incl/questplus/norm_cdf.hpp"
-#include "psy_incl/questplus/csf.hpp"
+#include "psydapt/staircase/staircase.hpp"
+#include "psydapt/questplus/weibull.hpp"
+#include "psydapt/questplus/norm_cdf.hpp"
+#include "psydapt/questplus/csf.hpp"
 
 #endif // PSYDAPT_HPP

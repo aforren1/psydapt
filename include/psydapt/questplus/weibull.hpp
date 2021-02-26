@@ -22,11 +22,11 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <vector>
 #include <optional>
 
-#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xmath.hpp"
 
+#include "../../config.hpp"
 #include "../base.hpp"
 #include "questplus.hpp"
 

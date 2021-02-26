@@ -26,6 +26,10 @@ option(PSYDAPT_BUILD_TESTS "Build unit tests" OFF)
 option(PSYDAPT_BUILD_SCRATCH "Build scratch files" OFF)
 option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" OFF)
 
+if (PSYDAPT_DISABLE_EXCEPTIONS)
+    add_definitions(-DPSYDAPT_DISABLE_EXCEPTIONS)
+endif()
+
 add_library(psydapt INTERFACE)
 target_link_libraries(psydapt INTERFACE xtensor)
 #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -mavx2 -ffast-math -funroll-loops")

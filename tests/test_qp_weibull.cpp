@@ -1,7 +1,7 @@
 #include <Corrade/TestSuite/Tester.h>
 #include "Corrade/TestSuite/Compare/Container.h"
 #include <vector>
-#include "psydapt.hpp"
+#include "psydapt/questplus/weibull.hpp"
 
 using namespace Corrade;
 

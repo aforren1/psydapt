@@ -23,12 +23,12 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <optional>
 #include <cmath>
 
-#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xmath.hpp"
 #include "xtensor/xvectorize.hpp"
 
+#include "../../config.hpp"
 #include "../base.hpp"
 #include "questplus.hpp"
 
@@ -41,11 +41,12 @@ namespace psydapt
     {
         namespace detail
         {
-            static double norm_cdf(double x)
+            template <typename T>
+            T norm_cdf(T x)
             {
-                return std::erfc(-x / std::sqrt(2)) / 2;
+                return std::erfc(-x * std::sqrt(0.5)) * 0.5;
             }
-            static auto vec_norm_cdf = xt::vectorize(norm_cdf);
+            static auto vec_norm_cdf = xt::vectorize(norm_cdf<double>);
         } // namespace detail
         class NormCDF : public QuestPlusBase<1, 4, 2>
         {

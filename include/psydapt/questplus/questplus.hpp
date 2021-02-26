@@ -22,14 +22,9 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <cstddef>
 #include <vector>
 #include <random>
-#include <type_traits>
 #include <array>
-#include <numeric>
-#include <string>
 #include <tuple>
-#include <iostream>
 
-#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xview.hpp"
@@ -37,6 +32,9 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include "xtensor/xmath.hpp"
 #include "xtensor/xutils.hpp"
 #include "xtensor/xnoalias.hpp"
+
+#include "../../config.hpp"
+#include "../base.hpp"
 
 /** @file
  * @brief Class @ref psydapt::questplus::QuestPlusBase
@@ -107,11 +105,13 @@ namespace psydapt
                 const auto shp = likelihoods.shape();
                 if constexpr (std::is_scalar_v<stim_type>)
                 {
-                    for (unsigned int i = 0; i < shp[0]; i++)
+                    for (std::size_t i = 0; i < shp[0]; i++)
                     {
-                        for (unsigned int j = 0; j < shp[1]; j++)
+                        for (std::size_t j = 0; j < shp[1]; j++)
                         {
-                            xt::view(new_posterior, i, j) = xt::view(likelihoods, i, j) * posterior;
+                            auto tmp_posterior = xt::view(new_posterior, i, j);
+                            auto tmp_likelihood = xt::view(likelihoods, i, j);
+                            tmp_posterior = tmp_likelihood * posterior;
                         }
                     }
                 }
@@ -120,7 +120,7 @@ namespace psydapt
                     std::array<std::size_t, DimStim + 1> upper;
                     std::array<std::size_t, DimStim + 1> idx{0};
                     upper[0] = shp[0];
-                    for (unsigned int i = 0; i < DimStim; i++)
+                    for (std::size_t i = 0; i < DimStim; i++)
                     {
                         upper[i + 1] = shp[i + 1];
                     }
@@ -163,8 +163,7 @@ namespace psydapt
             {
                 if (response < 0 || static_cast<std::size_t>(response) >= n_resp)
                 {
-                    using namespace std::string_literals;
-                    PSYDAPT_THROW(std::invalid_argument, "The response " + std::to_string(response) + " was not within [0, " + std::to_string(n_resp) + ")."s);
+                    PSYDAPT_THROW(std::invalid_argument, "The response is outside the valid range.");
                 }
                 this->stimulus_history.push_back(stimulus ? *stimulus : this->next_stimulus);
                 this->response_history.push_back(response);

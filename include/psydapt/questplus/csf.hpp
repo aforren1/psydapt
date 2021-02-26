@@ -22,11 +22,11 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <vector>
 #include <optional>
 
-#include "xtensor/xio.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xmath.hpp"
 
+#include "../../config.hpp"
 #include "../base.hpp"
 #include "questplus.hpp"
 
@@ -126,7 +126,7 @@ namespace psydapt
                     p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t)));
                     break;
                 case Scale::dB:
-                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t) / 20.0));
+                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t) * 0.05));
                     break;
                 }
                 // in this, we diverge from hoechenberger/questplus
