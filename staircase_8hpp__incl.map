@@ -1,8 +1,9 @@
-<map id="psy_incl/staircase/staircase.hpp" name="psy_incl/staircase/staircase.hpp">
-<area shape="rect" id="node1" title="Class psydapt::staircase::Staircase." alt="" coords="78,5,205,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,64,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="72,169,131,196"/>
-<area shape="rect" id="node4" title=" " alt="" coords="229,169,296,196"/>
-<area shape="rect" id="node5" href="$base_8hpp.html" title="Class psydapt::Base, enum psydapt::Scale." alt="" coords="139,95,223,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="155,169,205,196"/>
+<map id="psydapt/staircase/staircase.hpp" name="psydapt/staircase/staircase.hpp">
+<area shape="rect" id="node1" title="Class psydapt::staircase::Staircase." alt="" coords="79,5,284,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,64,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="73,155,132,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="291,155,357,181"/>
+<area shape="rect" id="node5" href="$config_8hpp_source.html" title=" " alt="" coords="247,80,347,107"/>
+<area shape="rect" id="node6" href="$base_8hpp.html" title="Class psydapt::Base, enum psydapt::Scale." alt="" coords="139,80,223,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="156,155,207,181"/>
 </map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>psydapt: psy_incl/questplus/csf.hpp Source File</title>
+<title>psydapt: psydapt/questplus/csf.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_aca197a8893fc47fb3796bbdc6807563.html">psy_incl</a></li><li class="navelem"><a class="el" href="dir_7111c7f7c4005b9a7a90e29aec41bfd1.html">questplus</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_cb346d104cb17255945b65b99f585b67.html">psydapt</a></li><li class="navelem"><a class="el" href="dir_ac084403a69c203ca5f76e1b6d491396.html">questplus</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -93,11 +93,11 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;xtensor/xio.hpp&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;xtensor/xtensor.hpp&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;xtensor/xadapt.hpp&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;xtensor/xmath.hpp&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;xtensor/xtensor.hpp&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;xtensor/xadapt.hpp&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;xtensor/xmath.hpp&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;../../config.hpp&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;../base.hpp&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="questplus_8hpp.html">questplus.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
@@ -193,7 +193,7 @@ $(function() {
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t)));</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                <span class="keywordflow">case</span> Scale::dB:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t) / 20.0));</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - t) * 0.05));</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                }</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="comment">// in this, we diverge from hoechenberger/questplus</span></div>
@@ -207,9 +207,9 @@ $(function() {
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abase_8hpp_html_a2c8e70e642b3ca34240a792d3d373624"><div class="ttname"><a href="base_8hpp.html#a2c8e70e642b3ca34240a792d3d373624">psydapt::Scale</a></div><div class="ttdeci">Scale</div><div class="ttdoc">Stimulus scale.</div><div class="ttdef"><b>Definition:</b> base.hpp:33</div></div>
 <div class="ttc" id="aclasspsydapt_1_1questplus_1_1CSF_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1CSF.html">psydapt::questplus::CSF</a></div><div class="ttdef"><b>Definition:</b> csf.hpp:42</div></div>
-<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:97</div></div>
+<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:95</div></div>
 <div class="ttc" id="aquestplus_8hpp_html"><div class="ttname"><a href="questplus_8hpp.html">questplus.hpp</a></div><div class="ttdoc">Class psydapt::questplus::QuestPlusBase.</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:88</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:86</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1CSF_1_1Params_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1CSF_1_1Params.html">psydapt::questplus::CSF::Params</a></div><div class="ttdef"><b>Definition:</b> csf.hpp:48</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1CSF_1_1Params_html_a1073179aa7d786ec705d819ab761ecac"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1CSF_1_1Params.html#a1073179aa7d786ec705d819ab761ecac">psydapt::questplus::CSF::Params::c0_prior</a></div><div class="ttdeci">std::optional&lt; std::vector&lt; double &gt; &gt; c0_prior</div><div class="ttdoc">Array of possible lapse rate parameter values.</div><div class="ttdef"><b>Definition:</b> csf.hpp:63</div></div>
 <div class="ttc" id="astructpsydapt_1_1questplus_1_1CSF_1_1Params_html_a116ae4833f45a50b9d92450068357da2"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1CSF_1_1Params.html#a116ae4833f45a50b9d92450068357da2">psydapt::questplus::CSF::Params::cf</a></div><div class="ttdeci">std::vector&lt; double &gt; cf</div><div class="ttdoc">Array of possible values for this coefficient.</div><div class="ttdef"><b>Definition:</b> csf.hpp:56</div></div>
