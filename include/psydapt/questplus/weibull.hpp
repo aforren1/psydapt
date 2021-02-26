@@ -100,7 +100,7 @@ namespace psydapt
                     p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - thresh)));
                     break;
                 case Scale::dB:
-                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - thresh) / 20.0));
+                    p = 1 - lapse - (1 - lower - lapse) * xt::exp(-xt::pow(10, slope * (x - thresh) * 0.05));
                     break;
                 }
                 // in this, we diverge from hoechenberger/questplus

@@ -145,17 +145,18 @@ namespace psydapt
                 if ((!reversal_count || initial_rule) && settings.apply_initial_rule)
                 {
                     initial_rule = false;
-                    response_history.end()[-1] ? decrement() : increment();
+                    int sign = response_history.end()[-1] ? -1 : 1;
+                    step(sign);
                 }
                 else if (correct_count >= settings.n_down)
                 {
                     // n right, so decrement
-                    decrement();
+                    step(-1);
                 }
                 else if (correct_count <= -settings.n_up)
                 {
                     // n wrong, so increment
-                    increment();
+                    step(1);
                 }
                 return next_stimulus;
             }
@@ -210,42 +211,26 @@ namespace psydapt
 
             Params settings;
 
-            void increment()
+            void step(double sign)
             {
+                double temp_step = step_size * sign;
                 switch (settings.stim_scale)
                 {
                 case Scale::dB:
-                    next_stimulus *= std::pow(10.0, step_size / 20.0);
+                    next_stimulus *= std::pow(10.0, temp_step * 0.05);
                     break;
                 case Scale::Log10:
-                    next_stimulus *= std::pow(10.0, step_size);
+                    next_stimulus *= std::pow(10.0, temp_step);
                     break;
                 case Scale::Linear:
-                    next_stimulus += step_size;
+                    next_stimulus += temp_step;
                     break;
                 }
-                if (settings.max_val)
+                if (settings.max_val && sign > 0)
                 {
                     next_stimulus = std::min(next_stimulus, *settings.max_val);
                 }
-                correct_count = 0;
-            }
-
-            void decrement()
-            {
-                switch (settings.stim_scale)
-                {
-                case Scale::dB:
-                    next_stimulus /= std::pow(10.0, step_size * 0.05);
-                    break;
-                case Scale::Log10:
-                    next_stimulus /= std::pow(10.0, step_size);
-                    break;
-                case Scale::Linear:
-                    next_stimulus -= step_size;
-                    break;
-                }
-                if (settings.min_val)
+                else if (settings.min_val && sign < 0)
                 {
                     next_stimulus = std::max(next_stimulus, *settings.min_val);
                 }
