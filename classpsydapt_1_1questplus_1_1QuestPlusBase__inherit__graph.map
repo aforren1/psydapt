@@ -1,4 +1,4 @@
-<map id="psydapt::questplus::QuestPlusBase&lt; DimStim, DimParam, NResp &gt;" name="psydapt::questplus::QuestPlusBase&lt; DimStim, DimParam, NResp &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,189,136"/>
-<area shape="rect" id="node2" href="$classpsydapt_1_1Base.html" title=" " alt="" coords="10,5,185,32"/>
+<map id="psydapt::questplus::QuestPlusBase&lt; T, DimStim, DimParam, NResp &gt;" name="psydapt::questplus::QuestPlusBase&lt; T, DimStim, DimParam, NResp &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="5,109,207,165"/>
+<area shape="rect" id="node2" href="$classpsydapt_1_1Base.html" title=" " alt="" coords="6,5,206,61"/>
 </map>

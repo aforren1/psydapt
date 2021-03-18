@@ -1,9 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpsydapt_1_1Base.html" title=" " alt="" coords="5,147,180,174"/>
-<area shape="rect" id="node2" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="249,53,391,109"/>
-<area shape="rect" id="node5" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="249,133,391,189"/>
-<area shape="rect" id="node7" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="228,213,412,269"/>
-<area shape="rect" id="node3" href="$classpsydapt_1_1questplus_1_1NormCDF.html" title=" " alt="" coords="476,5,605,47"/>
-<area shape="rect" id="node4" href="$classpsydapt_1_1questplus_1_1Weibull.html" title=" " alt="" coords="476,71,605,112"/>
-<area shape="rect" id="node6" href="$classpsydapt_1_1questplus_1_1CSF.html" title=" " alt="" coords="460,147,621,174"/>
+<area shape="rect" id="node1" href="$classpsydapt_1_1Base.html" title="Base." alt="" coords="5,100,196,127"/>
+<area shape="rect" id="node2" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="260,5,420,61"/>
+<area shape="rect" id="node4" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="252,85,428,141"/>
+<area shape="rect" id="node6" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="244,165,436,221"/>
+<area shape="rect" id="node3" href="$classpsydapt_1_1questplus_1_1CSF.html" title=" " alt="" coords="484,20,645,47"/>
+<area shape="rect" id="node5" href="$classpsydapt_1_1questplus_1_1Weibull.html" title=" " alt="" coords="500,93,629,134"/>
+<area shape="rect" id="node7" href="$classpsydapt_1_1questplus_1_1NormCDF.html" title=" " alt="" coords="500,173,629,214"/>
 </map>

@@ -1,7 +1,8 @@
 <map id="psydapt::questplus::CSF" name="psydapt::questplus::CSF">
-<area shape="rect" id="node1" title=" " alt="" coords="96,215,257,241"/>
-<area shape="rect" id="node2" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="27,96,169,152"/>
-<area shape="rect" id="node3" href="$classpsydapt_1_1Base.html" title=" " alt="" coords="5,13,180,39"/>
-<area shape="rect" id="node4" href="$structpsydapt_1_1questplus_1_1CSF_1_1Params.html" title=" " alt="" coords="200,103,329,145"/>
-<area shape="rect" id="node5" href="$structpsydapt_1_1questplus_1_1BaseParams.html" title=" " alt="" coords="204,5,333,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="111,319,272,345"/>
+<area shape="rect" id="node2" href="$classpsydapt_1_1questplus_1_1QuestPlusBase.html" title=" " alt="" coords="29,200,189,256"/>
+<area shape="rect" id="node3" href="$classpsydapt_1_1Base.html" title="Base." alt="" coords="5,117,196,143"/>
+<area shape="rect" id="node4" href="$structpsydapt_1_1questplus_1_1CSF_1_1Params.html" title=" " alt="" coords="216,207,345,249"/>
+<area shape="rect" id="node5" href="$structpsydapt_1_1questplus_1_1BaseParams.html" title=" " alt="" coords="220,109,349,151"/>
+<area shape="rect" id="node6" href="$structpsydapt_1_1questplus_1_1MinNEntropyParams.html" title=" " alt="" coords="211,5,358,47"/>
 </map>

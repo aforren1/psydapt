@@ -140,191 +140,206 @@ $(function() {
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            Median,</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            Mode</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        };</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html">   85</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html">BaseParams</a></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html">   85</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html">MinNEntropyParams</a></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <a class="code" href="questplus_8hpp.html#a743fbd4b2e1ab725ea8709c1356331ac">StimSelectionMethod</a> stim_selection_method = StimSelectionMethod::MinEntropy; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">   88</a></span>&#160;            <a class="code" href="questplus_8hpp.html#aa1ea34f1d76032898187d99ad216fbbf">ParamEstimationMethod</a> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">param_estimation_method</a> = ParamEstimationMethod::Mean; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#a814f8bab4994d99fb86cb55ea3a49dee">   89</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#a814f8bab4994d99fb86cb55ea3a49dee">n</a> = 5;                                                          </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#aa341d2b55710728e6ac68c3bdf9304d9">   90</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#aa341d2b55710728e6ac68c3bdf9304d9">max_consecutive_reps</a> = 2;                                       </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#acaeceb0b2512de9e45f275566aa2d76e">   91</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#acaeceb0b2512de9e45f275566aa2d76e">random_seed</a> = 1;                                                </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        };</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">template</span> &lt;std::<span class="keywordtype">size_t</span> DimStim, std::<span class="keywordtype">size_t</span> DimParam, std::<span class="keywordtype">size_t</span> NResp = 2&gt;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">   94</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">QuestPlusBase</a> : <span class="keyword">public</span> <a class="code" href="classpsydapt_1_1Base.html">Base</a>&lt;DimStim&gt;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <a class="code" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">QuestPlusBase</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed) : rng{seed} {}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keyword">using</span> stim_type = <span class="keyword">typename</span> <a class="code" href="classpsydapt_1_1Base.html">Base&lt;DimStim&gt;::stim_type</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html#a1be7881e68744ab4ccc2abf22d7a9166">  100</a></span>&#160;            stim_type <a class="code" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html#a1be7881e68744ab4ccc2abf22d7a9166">next</a>()</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="comment">// new_posterior = xt::eval(posterior * likelihoods);</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="comment">// this way allows us to appeal to the fact that all latter dimensions</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="comment">// match, so we can use the fast broadcasting</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> shp = likelihoods.shape();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; shp[0]; i++)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; shp[1]; j++)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                        {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                            <span class="keyword">auto</span> tmp_posterior = xt::view(new_posterior, i, j);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                            <span class="keyword">auto</span> tmp_likelihood = xt::view(likelihoods, i, j);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                            tmp_posterior = tmp_likelihood * posterior;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                        }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    std::array&lt;std::size_t, DimStim + 1&gt; upper;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                    std::array&lt;std::size_t, DimStim + 1&gt; idx{0};</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                    upper[0] = shp[0];</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                    {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                        upper[i + 1] = shp[i + 1];</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                    <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                        <span class="keyword">auto</span> tmp_posterior = std::apply([&amp;np = this-&gt;new_posterior](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(np, xs...); }, idx);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                        <span class="keyword">auto</span> tmp_likelihood = std::apply([&amp;lk = this-&gt;likelihoods](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(lk, xs...); }, idx);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        tmp_posterior = tmp_likelihood * posterior;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    } <span class="keywordflow">while</span> (detail::increment&lt;DimStim + 1&gt;(idx, upper));</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                std::array&lt;std::size_t, DimParam&gt; param_idx;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> pkt = xt::transpose(pk);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <span class="keyword">auto</span> postt = xt::transpose(new_posterior);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                xt::noalias(postt) = postt / pkt;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                <span class="comment">// xt::transpose(new_posterior) /= xt::transpose(pk);</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                <span class="comment">// entropy</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx, xt::evaluation_strategy::immediate);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                <span class="comment">// expected entropies for stimuli</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                <span class="comment">// TODO: just do min_entropy by default until figure out retrieving settings</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <span class="comment">// find index of minimum entropy, then figure out which stimuli are there</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                    this-&gt;next_stimulus = stimuli[0][xt::argmin(EH)];</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                    <span class="keyword">auto</span> indices = xt::unravel_index(xt::argmin(EH)(), EH.shape(), xt::layout_type::row_major);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                        this-&gt;next_stimulus[i] = stimuli[i][indices[i]];</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    }</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="keywordflow">return</span> this-&gt;next_stimulus;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordtype">bool</span> update(<span class="keywordtype">int</span> response, std::optional&lt;stim_type&gt; stimulus = std::nullopt)</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="keywordflow">if</span> (response &lt; 0 || <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(response) &gt;= n_resp)</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    PSYDAPT_THROW(std::invalid_argument, <span class="stringliteral">&quot;The response is outside the valid range.&quot;</span>);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                this-&gt;stimulus_history.push_back(stimulus ? *stimulus : this-&gt;next_stimulus);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                this-&gt;response_history.push_back(response);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                <span class="comment">// find nearest matching response</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                xt::xtensor&lt;double, DimParam + DimStim&gt; likelihood2 = xt::view(likelihoods, response, xt::all());</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> last_stim = this-&gt;stimulus_history.back();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                xt::xtensor&lt;double, DimParam&gt; likelihood;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    <span class="comment">// find index of nearest stimulus input, and take a view from there</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    std::size_t idx = xt::argmin(xt::abs(stimuli[0] - last_stim))[0];</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                    likelihood = xt::view(likelihood2, idx, xt::all());</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                }</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n = 5;                    </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a902c6bb2b6bdfd9a925733fe61bee220">   88</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a902c6bb2b6bdfd9a925733fe61bee220">max_consecutive_reps</a> = 2; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a9437fee62c09590aa573f9f897561743">   89</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a9437fee62c09590aa573f9f897561743">random_seed</a> = 1;          </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        };</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html">   91</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html">BaseParams</a></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="questplus_8hpp.html#a743fbd4b2e1ab725ea8709c1356331ac">StimSelectionMethod</a> stim_selection_method = StimSelectionMethod::MinEntropy; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">   94</a></span>&#160;            <a class="code" href="questplus_8hpp.html#aa1ea34f1d76032898187d99ad216fbbf">ParamEstimationMethod</a> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">param_estimation_method</a> = ParamEstimationMethod::Mean; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="structpsydapt_1_1questplus_1_1BaseParams.html#acdc7e7b75a234bc25664d10bd0a6acca">   95</a></span>&#160;            <a class="code" href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html">MinNEntropyParams</a> <a class="code" href="structpsydapt_1_1questplus_1_1BaseParams.html#acdc7e7b75a234bc25664d10bd0a6acca">min_n_entropy_params</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        };</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, std::<span class="keywordtype">size_t</span> DimStim, std::<span class="keywordtype">size_t</span> DimParam, std::<span class="keywordtype">size_t</span> NResp = 2&gt;</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">   98</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">QuestPlusBase</a> : <span class="keyword">public</span> <a class="code" href="classpsydapt_1_1Base.html">Base</a>&lt;QuestPlusBase&lt;T, DimStim, DimParam, NResp&gt;, DimStim&gt;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keyword">friend</span> <a class="code" href="classpsydapt_1_1Base.html">Base&lt;QuestPlusBase, DimStim&gt;</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <a class="code" href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">QuestPlusBase</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed) : rng{seed} {}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keyword">using</span> stim_type = <span class="keyword">typename</span> Base&lt;QuestPlusBase, DimStim&gt;::stim_type;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            stim_type next()</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="comment">// new_posterior = xt::eval(posterior * likelihoods);</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                <span class="comment">// this way allows us to appeal to the fact that all latter dimensions</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="comment">// match, so we can use the fast broadcasting</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> shp = likelihoods.shape();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; shp[0]; i++)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                        <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; shp[1]; j++)</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                        {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                            <span class="keyword">auto</span> tmp_posterior = xt::view(new_posterior, i, j);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                            <span class="keyword">auto</span> tmp_likelihood = xt::view(likelihoods, i, j);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                            tmp_posterior = tmp_likelihood * posterior;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                        }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                    }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    std::array&lt;std::size_t, DimStim + 1&gt; upper;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                    std::array&lt;std::size_t, DimStim + 1&gt; idx{0};</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    upper[0] = shp[0];</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        upper[i + 1] = shp[i + 1];</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                    {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                        <span class="keyword">auto</span> tmp_posterior = std::apply([&amp;np = this-&gt;new_posterior](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(np, xs...); }, idx);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                        <span class="keyword">auto</span> tmp_likelihood = std::apply([&amp;lk = this-&gt;likelihoods](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(lk, xs...); }, idx);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                        tmp_posterior = tmp_likelihood * posterior;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                    } <span class="keywordflow">while</span> (detail::increment&lt;DimStim + 1&gt;(idx, upper));</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                std::array&lt;std::size_t, DimParam&gt; param_idx;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                std::iota(param_idx.begin(), param_idx.end(), 1 + DimStim);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                pk = xt::sum(new_posterior, param_idx, xt::evaluation_strategy::immediate);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> pkt = xt::transpose(pk);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                <span class="keyword">auto</span> postt = xt::transpose(new_posterior);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                xt::noalias(postt) = postt / pkt;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                <span class="comment">// xt::transpose(new_posterior) /= xt::transpose(pk);</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                <span class="comment">// entropy</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx, xt::evaluation_strategy::immediate);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                <span class="comment">// expected entropies for stimuli</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="comment">// TODO: just do min_entropy by default until figure out retrieving settings</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                <span class="comment">// find index of minimum entropy, then figure out which stimuli are there</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    this-&gt;next_stimulus = stimuli[0][xt::argmin(EH)];</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="keyword">auto</span> indices = xt::unravel_index(xt::argmin(EH)(), EH.shape(), xt::layout_type::row_major);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                    {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                        this-&gt;next_stimulus[i] = stimuli[i][indices[i]];</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                <span class="keywordflow">return</span> this-&gt;next_stimulus;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordtype">bool</span> update(<span class="keywordtype">int</span> response, std::optional&lt;stim_type&gt; stimulus = std::nullopt)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                <span class="keywordflow">if</span> (response &lt; 0 || <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(response) &gt;= n_resp)</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    PSYDAPT_THROW(std::invalid_argument, <span class="stringliteral">&quot;The response is outside the valid range.&quot;</span>);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                this-&gt;stimulus_history.push_back(stimulus ? *stimulus : this-&gt;next_stimulus);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                this-&gt;response_history.push_back(response);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="comment">// find nearest matching response</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                xt::xtensor&lt;double, DimParam + DimStim&gt; likelihood2 = xt::view(likelihoods, response, xt::all());</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> last_stim = this-&gt;stimulus_history.back();</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                xt::xtensor&lt;double, DimParam&gt; likelihood;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_scalar_v&lt;stim_type&gt;)</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                    <span class="comment">// need to loop over all of DimStim/whatever the stim length is,</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    <span class="comment">// taking progressively more views</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    std::array&lt;std::size_t, DimStim&gt; idx;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                    {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                        idx[i] = xt::argmin(xt::abs(stimuli[i] - last_stim[i]))[0];</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    likelihood = std::apply([&amp;likelihood2](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(likelihood2, xs...); }, idx);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                xt::noalias(posterior) = xt::eval(posterior * likelihood);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                xt::noalias(posterior) = xt::eval(posterior / xt::sum(posterior, xt::evaluation_strategy::immediate));</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// unconditionally continue for now</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            }</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="comment">// derived classes must tell us how to calc prior &amp; likelihood</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keyword">virtual</span> xt::xtensor&lt;double, DimParam&gt; generate_prior() = 0;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="comment">// +1 for response dimension</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <span class="keyword">virtual</span> xt::xtensor&lt;double, DimParam + DimStim + 1&gt; generate_likelihoods() = 0;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> make_stimuli() = 0;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <span class="keyword">static</span> constexpr std::size_t dim_stim = DimStim;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <span class="keyword">static</span> constexpr std::size_t dim_param = DimParam;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keyword">static</span> constexpr std::size_t n_resp = NResp;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            xt::xtensor&lt;double, DimParam&gt; prior;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            xt::xtensor&lt;double, DimParam&gt; posterior;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            xt::xtensor&lt;double, DimParam + DimStim + 1&gt; likelihoods;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            std::array&lt;xt::xtensor&lt;double, 1&gt;, DimStim&gt; stimuli;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            xt::xtensor&lt;double, DimParam + DimStim + 1&gt; new_posterior;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            xt::xtensor&lt;double, 1 + DimStim&gt; pk;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            xt::xtensor&lt;double, 1 + DimStim&gt; H;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            xt::xtensor&lt;double, DimStim&gt; EH;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            std::mt19937 rng; <span class="comment">// for &#39;min_n_entropy&#39;</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <span class="keywordtype">void</span> setup()</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            {</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                <span class="comment">// everything else for init, post-assigning settings</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                prior = xt::eval(generate_prior());</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                posterior = prior;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                likelihoods = xt::eval(generate_likelihoods());</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                new_posterior = xt::xtensor&lt;double, DimParam + DimStim + 1&gt;::from_shape(likelihoods.shape());</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                make_stimuli();</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                <span class="comment">// TODO: pick something smarter, once we incorporate termination conditions</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                this-&gt;response_history.reserve(500);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                this-&gt;stimulus_history.reserve(500);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                <span class="comment">//</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            }</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            xt::xtensor&lt;double, DimParam&gt; prior_helper(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;param,</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                                                       <span class="keyword">const</span> std::optional&lt;std::vector&lt;double&gt;&gt; &amp;prior = std::nullopt,</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                                                       <span class="keyword">const</span> std::size_t index = 0)</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> param_size = param.size();</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                std::array&lt;std::size_t, DimParam&gt; prior_shape;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                prior_shape.fill(1);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                prior_shape[index] = param_size;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                xt::xtensor&lt;double, DimParam&gt; out_prior;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                <span class="keywordflow">if</span> (prior)</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                {</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                    <span class="keyword">auto</span> &amp;tp = *prior;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                    <span class="keywordflow">if</span> (tp.size() != param_size)</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                    {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                        PSYDAPT_THROW(std::invalid_argument, <span class="stringliteral">&quot;The prior and parameter domain sizes must match.&quot;</span>);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                    }</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                    out_prior = xt::adapt&lt;xt::layout_type::row_major&gt;(tp, prior_shape);</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                }</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                    out_prior = xt::ones&lt;double&gt;(prior_shape);</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                }</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                <span class="keywordflow">return</span> out_prior;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            }</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        };</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    } <span class="comment">// namespace questplus</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;} <span class="comment">// namespace psydapt</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                    <span class="comment">// find index of nearest stimulus input, and take a view from there</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    std::size_t idx = xt::argmin(xt::abs(stimuli[0] - last_stim))[0];</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    likelihood = xt::view(likelihood2, idx, xt::all());</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    <span class="comment">// need to loop over all of DimStim/whatever the stim length is,</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    <span class="comment">// taking progressively more views</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                    std::array&lt;std::size_t, DimStim&gt; idx;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; DimStim; i++)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                        idx[i] = xt::argmin(xt::abs(stimuli[i] - last_stim[i]))[0];</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                    likelihood = std::apply([&amp;likelihood2](<span class="keyword">auto</span> &amp;&amp;...xs) { <span class="keywordflow">return</span> xt::view(likelihood2, xs...); }, idx);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                xt::noalias(posterior) = xt::eval(posterior * likelihood);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                xt::noalias(posterior) = xt::eval(posterior / xt::sum(posterior, xt::evaluation_strategy::immediate));</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// unconditionally continue for now</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <span class="comment">// derived classes must tell us how to calc prior &amp; likelihood</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            xt::xtensor&lt;double, DimParam&gt; generate_prior()</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;generate_prior();</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="comment">// +1 for response dimension</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            xt::xtensor&lt;double, DimParam + DimStim + 1&gt; generate_likelihoods()</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;generate_likelihoods();</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keywordtype">void</span> make_stimuli()</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;make_stimuli();</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            <span class="keyword">static</span> constexpr std::size_t dim_stim = DimStim;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <span class="keyword">static</span> constexpr std::size_t dim_param = DimParam;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            <span class="keyword">static</span> constexpr std::size_t n_resp = NResp;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            xt::xtensor&lt;double, DimParam&gt; prior;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            xt::xtensor&lt;double, DimParam&gt; posterior;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            xt::xtensor&lt;double, DimParam + DimStim + 1&gt; likelihoods;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            std::array&lt;xt::xtensor&lt;double, 1&gt;, DimStim&gt; stimuli;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            xt::xtensor&lt;double, DimParam + DimStim + 1&gt; new_posterior;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            xt::xtensor&lt;double, 1 + DimStim&gt; pk;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            xt::xtensor&lt;double, 1 + DimStim&gt; H;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            xt::xtensor&lt;double, DimStim&gt; EH;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            std::mt19937 rng; <span class="comment">// for &#39;min_n_entropy&#39;</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            <span class="keywordtype">void</span> setup()</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                <span class="comment">// everything else for init, post-assigning settings</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                prior = xt::eval(generate_prior());</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                posterior = prior;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                likelihoods = xt::eval(generate_likelihoods());</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                new_posterior = xt::xtensor&lt;double, DimParam + DimStim + 1&gt;::from_shape(likelihoods.shape());</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                make_stimuli();</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                <span class="comment">// TODO: pick something smarter, once we incorporate termination conditions</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                this-&gt;response_history.reserve(500);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                this-&gt;stimulus_history.reserve(500);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                <span class="comment">//</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            xt::xtensor&lt;double, DimParam&gt; prior_helper(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;param,</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                                                       <span class="keyword">const</span> std::optional&lt;std::vector&lt;double&gt;&gt; &amp;prior = std::nullopt,</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                                                       <span class="keyword">const</span> std::size_t index = 0)</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> param_size = param.size();</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                std::array&lt;std::size_t, DimParam&gt; prior_shape;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                prior_shape.fill(1);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                prior_shape[index] = param_size;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                xt::xtensor&lt;double, DimParam&gt; out_prior;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                <span class="keywordflow">if</span> (prior)</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                    <span class="keyword">auto</span> &amp;tp = *prior;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    <span class="keywordflow">if</span> (tp.size() != param_size)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                    {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                        PSYDAPT_THROW(std::invalid_argument, <span class="stringliteral">&quot;The prior and parameter domain sizes must match.&quot;</span>);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                    out_prior = xt::adapt&lt;xt::layout_type::row_major&gt;(tp, prior_shape);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                    out_prior = xt::ones&lt;double&gt;(prior_shape);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                <span class="keywordflow">return</span> out_prior;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        };</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    } <span class="comment">// namespace questplus</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;} <span class="comment">// namespace psydapt</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclasspsydapt_1_1Base_html"><div class="ttname"><a href="classpsydapt_1_1Base.html">psydapt::Base</a></div><div class="ttdoc">Base.</div><div class="ttdef"><b>Definition:</b> base.hpp:46</div></div>
-<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:95</div></div>
-<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html_a1be7881e68744ab4ccc2abf22d7a9166"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html#a1be7881e68744ab4ccc2abf22d7a9166">psydapt::questplus::QuestPlusBase::next</a></div><div class="ttdeci">stim_type next()</div><div class="ttdoc">Generate the next stimulus (or stimuli)</div><div class="ttdef"><b>Definition:</b> questplus.hpp:100</div></div>
+<div class="ttc" id="aclasspsydapt_1_1questplus_1_1QuestPlusBase_html"><div class="ttname"><a href="classpsydapt_1_1questplus_1_1QuestPlusBase.html">psydapt::questplus::QuestPlusBase</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:99</div></div>
 <div class="ttc" id="aquestplus_8hpp_html_a743fbd4b2e1ab725ea8709c1356331ac"><div class="ttname"><a href="questplus_8hpp.html#a743fbd4b2e1ab725ea8709c1356331ac">psydapt::questplus::StimSelectionMethod</a></div><div class="ttdeci">StimSelectionMethod</div><div class="ttdoc">Stimulus selection method.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:71</div></div>
 <div class="ttc" id="aquestplus_8hpp_html_aa1ea34f1d76032898187d99ad216fbbf"><div class="ttname"><a href="questplus_8hpp.html#aa1ea34f1d76032898187d99ad216fbbf">psydapt::questplus::ParamEstimationMethod</a></div><div class="ttdeci">ParamEstimationMethod</div><div class="ttdoc">Parameter estimation method.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:80</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:86</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_a814f8bab4994d99fb86cb55ea3a49dee"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#a814f8bab4994d99fb86cb55ea3a49dee">psydapt::questplus::BaseParams::n</a></div><div class="ttdeci">unsigned int n</div><div class="ttdoc">Method used to estimate parameters (ignored).</div><div class="ttdef"><b>Definition:</b> questplus.hpp:89</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_aa341d2b55710728e6ac68c3bdf9304d9"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#aa341d2b55710728e6ac68c3bdf9304d9">psydapt::questplus::BaseParams::max_consecutive_reps</a></div><div class="ttdeci">unsigned int max_consecutive_reps</div><div class="ttdoc">Number of smallest entropies considered if MinNEntropy selected.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:90</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_acaeceb0b2512de9e45f275566aa2d76e"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#acaeceb0b2512de9e45f275566aa2d76e">psydapt::questplus::BaseParams::random_seed</a></div><div class="ttdeci">unsigned int random_seed</div><div class="ttdoc">Number of times stimulus will be presented (MinNEntropy only).</div><div class="ttdef"><b>Definition:</b> questplus.hpp:91</div></div>
-<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_ae2c8fff392db75c829c1b762cee242e8"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">psydapt::questplus::BaseParams::param_estimation_method</a></div><div class="ttdeci">ParamEstimationMethod param_estimation_method</div><div class="ttdoc">Method used to select next stimulus.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:88</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html">psydapt::questplus::BaseParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:92</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_acdc7e7b75a234bc25664d10bd0a6acca"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#acdc7e7b75a234bc25664d10bd0a6acca">psydapt::questplus::BaseParams::min_n_entropy_params</a></div><div class="ttdeci">MinNEntropyParams min_n_entropy_params</div><div class="ttdoc">Method used to estimate parameters (ignored).</div><div class="ttdef"><b>Definition:</b> questplus.hpp:95</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1BaseParams_html_ae2c8fff392db75c829c1b762cee242e8"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1BaseParams.html#ae2c8fff392db75c829c1b762cee242e8">psydapt::questplus::BaseParams::param_estimation_method</a></div><div class="ttdeci">ParamEstimationMethod param_estimation_method</div><div class="ttdoc">Method used to select next stimulus.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:94</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1MinNEntropyParams_html"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html">psydapt::questplus::MinNEntropyParams</a></div><div class="ttdef"><b>Definition:</b> questplus.hpp:86</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1MinNEntropyParams_html_a902c6bb2b6bdfd9a925733fe61bee220"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a902c6bb2b6bdfd9a925733fe61bee220">psydapt::questplus::MinNEntropyParams::max_consecutive_reps</a></div><div class="ttdeci">unsigned int max_consecutive_reps</div><div class="ttdoc">Number of smallest entropies considered if MinNEntropy selected.</div><div class="ttdef"><b>Definition:</b> questplus.hpp:88</div></div>
+<div class="ttc" id="astructpsydapt_1_1questplus_1_1MinNEntropyParams_html_a9437fee62c09590aa573f9f897561743"><div class="ttname"><a href="structpsydapt_1_1questplus_1_1MinNEntropyParams.html#a9437fee62c09590aa573f9f897561743">psydapt::questplus::MinNEntropyParams::random_seed</a></div><div class="ttdeci">unsigned int random_seed</div><div class="ttdoc">Number of times stimulus will be presented (MinNEntropy only).</div><div class="ttdef"><b>Definition:</b> questplus.hpp:89</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
