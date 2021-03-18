@@ -151,17 +151,25 @@ namespace psydapt
                 EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
                 // TODO: just do min_entropy by default until figure out retrieving settings
                 // find index of minimum entropy, then figure out which stimuli are there
-                if constexpr (std::is_scalar_v<stim_type>)
+                const auto settings = static_cast<T *>(this)->settings;
+                if (settings.stim_selection_method == StimSelectionMethod::MinEntropy)
                 {
-                    this->next_stimulus = stimuli[0][xt::argmin(EH)];
-                }
-                else
-                {
-                    auto indices = xt::unravel_index(xt::argmin(EH)(), EH.shape(), xt::layout_type::row_major);
-                    for (std::size_t i = 0; i < DimStim; i++)
+
+                    if constexpr (std::is_scalar_v<stim_type>)
                     {
-                        this->next_stimulus[i] = stimuli[i][indices[i]];
+                        this->next_stimulus = stimuli[0][xt::argmin(EH)];
                     }
+                    else
+                    {
+                        auto indices = xt::unravel_index(xt::argmin(EH)(), EH.shape(), xt::layout_type::row_major);
+                        for (std::size_t i = 0; i < DimStim; i++)
+                        {
+                            this->next_stimulus[i] = stimuli[i][indices[i]];
+                        }
+                    }
+                }
+                else if (settings.stim_selection_method == StimSelectionMethod::MinNEntropy)
+                {
                 }
                 return this->next_stimulus;
             }
