@@ -82,20 +82,26 @@ namespace psydapt
             Median,
             Mode
         };
+        struct MinNEntropyParams
+        {
+            unsigned int n = 5;                    /// Number of smallest entropies considered if `MinNEntropy` selected.
+            unsigned int max_consecutive_reps = 2; /// Number of times stimulus will be presented (`MinNEntropy` only).
+            unsigned int random_seed = 1;          /// Random seed used by `StimSelectionMethod`.
+        };
         struct BaseParams
         {
             StimSelectionMethod stim_selection_method = StimSelectionMethod::MinEntropy; /// Method used to select next stimulus.
             ParamEstimationMethod param_estimation_method = ParamEstimationMethod::Mean; /// Method used to estimate parameters (ignored).
-            unsigned int n = 5;                                                          /// Number of smallest entropies considered if `MinNEntropy` selected.
-            unsigned int max_consecutive_reps = 2;                                       /// Number of times stimulus will be presented (`MinNEntropy` only).
-            unsigned int random_seed = 1;                                                /// Random seed used by `StimSelectionMethod`.
+            MinNEntropyParams min_n_entropy_params;
         };
-        template <std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
-        class QuestPlusBase : public Base<DimStim>
+        template <class T, std::size_t DimStim, std::size_t DimParam, std::size_t NResp = 2>
+        class QuestPlusBase : public Base<QuestPlusBase<T, DimStim, DimParam, NResp>, DimStim>
         {
+            friend Base<QuestPlusBase, DimStim>;
+
         public:
             QuestPlusBase(unsigned int seed) : rng{seed} {}
-            using stim_type = typename Base<DimStim>::stim_type;
+            using stim_type = typename Base<QuestPlusBase, DimStim>::stim_type;
 
             stim_type next()
             {
@@ -197,10 +203,19 @@ namespace psydapt
 
         protected:
             // derived classes must tell us how to calc prior & likelihood
-            virtual xt::xtensor<double, DimParam> generate_prior() = 0;
+            xt::xtensor<double, DimParam> generate_prior()
+            {
+                return static_cast<T *>(this)->generate_prior();
+            }
             // +1 for response dimension
-            virtual xt::xtensor<double, DimParam + DimStim + 1> generate_likelihoods() = 0;
-            virtual void make_stimuli() = 0;
+            xt::xtensor<double, DimParam + DimStim + 1> generate_likelihoods()
+            {
+                return static_cast<T *>(this)->generate_likelihoods();
+            }
+            void make_stimuli()
+            {
+                return static_cast<T *>(this)->make_stimuli();
+            }
             static constexpr std::size_t dim_stim = DimStim;
             static constexpr std::size_t dim_param = DimParam;
             static constexpr std::size_t n_resp = NResp;

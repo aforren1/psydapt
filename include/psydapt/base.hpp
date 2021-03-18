@@ -41,7 +41,7 @@ namespace psydapt
      * 
      * All adaptive procedures are derived from here, which defines the basic interface.
      */
-    template <std::size_t DimStim = 1>
+    template <class T, std::size_t DimStim = 1>
     class Base
     {
 
@@ -54,8 +54,10 @@ namespace psydapt
 
     public:
         /** @brief Generate the next stimulus (or stimuli) */
-
-        virtual stim_type next() = 0;
+        stim_type next()
+        {
+            return static_cast<T *>(this)->next();
+        }
         /** @brief Update the state of the adaptive procedure
          * @param value Response made by participant (usually 0 or 1)
          * @param stimulus Optional value of the stimulus, if different from the one
@@ -63,7 +65,10 @@ namespace psydapt
          * 
          * @return Whether to continue the procedure or not.
         */
-        virtual bool update(int response, const std::optional<stim_type> stimulus = std::nullopt) = 0;
+        bool update(int response, const std::optional<stim_type> stimulus = std::nullopt)
+        {
+            return static_cast<T *>(this)->update(response, stimulus);
+        }
     };
 } // namespace psydapt
 #endif

@@ -37,11 +37,10 @@ namespace psydapt
 {
     namespace questplus
     {
-        class Weibull : public QuestPlusBase<1, 4, 2>
+        class Weibull : public QuestPlusBase<Weibull, 1, 4, 2>
         {
-        private:
-            // short alias to call super methods
-            typedef QuestPlusBase<1, 4, 2> QPB;
+            typedef QuestPlusBase<Weibull, 1, 4, 2> QPB;
+            friend QPB;
 
         public:
             struct Params : BaseParams
@@ -57,7 +56,7 @@ namespace psydapt
                 std::optional<std::vector<double>> lower_asymptote_prior; /// Prior over lower asymptote.
                 std::optional<std::vector<double>> lapse_rate_prior;      /// Prior over lapse rate.
             };
-            Weibull(const Params &params) : QPB(params.random_seed), settings(params)
+            Weibull(const Params &params) : QPB(params.min_n_entropy_params.random_seed), settings(params)
             {
                 // we need to delay
                 QPB::setup();

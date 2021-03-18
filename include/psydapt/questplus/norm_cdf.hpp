@@ -48,10 +48,10 @@ namespace psydapt
             }
             static auto vec_norm_cdf = xt::vectorize(norm_cdf<double>);
         } // namespace detail
-        class NormCDF : public QuestPlusBase<1, 4, 2>
+        class NormCDF : public QuestPlusBase<NormCDF, 1, 4, 2>
         {
-        private:
-            typedef QuestPlusBase<1, 4, 2> QPB;
+            typedef QuestPlusBase<NormCDF, 1, 4, 2> QPB;
+            friend QPB;
 
         public:
             struct Params : BaseParams
@@ -67,7 +67,7 @@ namespace psydapt
                 std::optional<std::vector<double>> lower_asymptote_prior; /// Prior over lower asymptote.
                 std::optional<std::vector<double>> lapse_rate_prior;      /// Prior over lapse rate.
             };
-            NormCDF(const Params &params) : QPB(params.random_seed), settings(params)
+            NormCDF(const Params &params) : QPB(params.min_n_entropy_params.random_seed), settings(params)
             {
                 QPB::setup();
             }

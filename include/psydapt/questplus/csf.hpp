@@ -38,10 +38,10 @@ namespace psydapt
 {
     namespace questplus
     {
-        class CSF : public QuestPlusBase<3, 7, 2>
+        class CSF : public QuestPlusBase<CSF, 3, 7, 2>
         {
-        private:
-            typedef QuestPlusBase<3, 7, 2> QPB;
+            typedef QuestPlusBase<CSF, 3, 7, 2> QPB;
+            friend QPB;
 
         public:
             struct Params : BaseParams
@@ -68,7 +68,7 @@ namespace psydapt
                 std::optional<std::vector<double>> lower_asymptote_prior;
                 std::optional<std::vector<double>> lapse_rate_prior;
             };
-            CSF(const Params &params) : QPB(params.random_seed), settings(params)
+            CSF(const Params &params) : QPB(params.min_n_entropy_params.random_seed), settings(params)
             {
                 QPB::setup();
             }

@@ -37,7 +37,7 @@ namespace psydapt
          * @brief C++ port of PsychoPy's StairHandler
          * https://github.com/psychopy/psychopy/blob/817ed9e38c6ac1d15a4beda98e916031e3bacaac/psychopy/data/staircase.py#L46
          */
-        class Staircase : public Base<1>
+        class Staircase : public Base<Staircase, 1>
         {
         public:
             struct Params
