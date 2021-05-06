@@ -7,7 +7,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest] #, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            CC: gcc-9
+            CXX: g++-9
+            shell: bash
+
+          - os: windows-latest
+
+          - os: macos-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -18,10 +26,6 @@ jobs:
         run: |
           cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build build --parallel 2
-        shell: bash
-        env:
-          CC: gcc-9
-          CXX: g++-9
 
       - name: Run tests
         run: |
