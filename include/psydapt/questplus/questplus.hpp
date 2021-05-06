@@ -24,6 +24,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <random>
 #include <array>
 #include <tuple>
+#include <stdexcept>
 
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"

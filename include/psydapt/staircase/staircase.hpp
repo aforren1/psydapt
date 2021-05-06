@@ -22,6 +22,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <cmath>
 #include <vector>
 #include <optional>
+#include <stdexcept>
 
 #include "../../config.hpp"
 #include "../base.hpp"

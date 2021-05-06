@@ -22,6 +22,7 @@ along with psydapt.  If not, see <https://www.gnu.org/licenses/>.
 #include <vector>
 #include <optional>
 #include <cmath>
+#include <stdexcept>
 
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xadapt.hpp"
