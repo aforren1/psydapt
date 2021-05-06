@@ -27,10 +27,13 @@ jobs:
           cmake -S . -B build -DPSYDAPT_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build build --parallel 2
 
-      - name: Run tests
-        run: |
-          cd build
-          ctest -V
+      - name: Run tests (non-Windows)
+        if: matrix.os != 'windows-latest'
+        run: cd build && ctest -V
+
+      - name: Run tests (Windows)
+        if: matrix.os == 'windows-latest'
+        run: cd build && ctest -V -C Release
 
   # doxygen from https://github.com/satu0king/Github-Documentation-With-Doxygen/blob/master/.github/workflows/main.yml
   build_dox:
