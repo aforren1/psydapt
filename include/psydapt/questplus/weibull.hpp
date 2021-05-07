@@ -70,10 +70,10 @@ namespace psydapt::questplus
 
         xt::xtensor<double, Weibull::dim_param> generate_prior()
         {
-            auto thresh_prior = prior_helper(settings.threshold, settings.threshold_prior, 0);
-            auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 1);
-            auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
-            auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
+            const auto thresh_prior = prior_helper(settings.threshold, settings.threshold_prior, 0);
+            const auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 1);
+            const auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
+            const auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
             xt::xtensor<double, Weibull::dim_param> prior = thresh_prior * slope_prior * lower_prior * lapse_prior;
             return prior / xt::sum(prior, xt::evaluation_strategy::immediate);
         }
@@ -81,11 +81,11 @@ namespace psydapt::questplus
         xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim + 1> generate_likelihoods()
         {
             using sz = std::array<std::size_t, Weibull::dim_param + Weibull::dim_stim>;
-            auto x = xt::adapt<xt::layout_type::row_major>(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
-            auto thresh = xt::adapt<xt::layout_type::row_major>(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});
-            auto slope = xt::adapt<xt::layout_type::row_major>(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});
-            auto lower = xt::adapt<xt::layout_type::row_major>(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
-            auto lapse = xt::adapt<xt::layout_type::row_major>(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
+            const auto x = xt::adapt<xt::layout_type::row_major>(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
+            const auto thresh = xt::adapt<xt::layout_type::row_major>(settings.threshold, sz{1, settings.threshold.size(), 1, 1, 1});
+            const auto slope = xt::adapt<xt::layout_type::row_major>(settings.slope, sz{1, 1, settings.slope.size(), 1, 1});
+            const auto lower = xt::adapt<xt::layout_type::row_major>(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
+            const auto lapse = xt::adapt<xt::layout_type::row_major>(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
 
             xt::xtensor<double, Weibull::dim_param + Weibull::dim_stim> p;
             switch (settings.stim_scale)

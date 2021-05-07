@@ -115,9 +115,7 @@ namespace psydapt::questplus
                 {
                     for (std::size_t j = 0; j < shp[1]; j++)
                     {
-                        auto tmp_posterior = xt::view(new_posterior, i, j);
-                        auto tmp_likelihood = xt::view(likelihoods, i, j);
-                        tmp_posterior = tmp_likelihood * posterior;
+                        xt::noalias(xt::view(new_posterior, i, j)) = xt::view(likelihoods, i, j) * posterior;
                     }
                 }
             }
@@ -134,7 +132,7 @@ namespace psydapt::questplus
                 {
                     auto tmp_posterior = std::apply([&np = this->new_posterior](auto &&...xs) { return xt::view(np, xs...); }, idx);
                     auto tmp_likelihood = std::apply([&lk = this->likelihoods](auto &&...xs) { return xt::view(lk, xs...); }, idx);
-                    tmp_posterior = tmp_likelihood * posterior;
+                    xt::noalias(tmp_posterior) = tmp_likelihood * posterior;
                 } while (detail::increment<DimStim + 1>(idx, upper));
             }
             std::array<std::size_t, DimParam> param_idx;
@@ -146,7 +144,8 @@ namespace psydapt::questplus
             // xt::transpose(new_posterior) /= xt::transpose(pk);
 
             // entropy
-            H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx, xt::evaluation_strategy::immediate);
+            const auto lognp = xt::log(new_posterior);
+            H = -xt::nansum(new_posterior * lognp, param_idx, xt::evaluation_strategy::immediate);
             // expected entropies for stimuli
             EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
             // TODO: just do min_entropy by default until figure out retrieving settings
@@ -227,7 +226,6 @@ namespace psydapt::questplus
         static constexpr std::size_t dim_stim = DimStim;
         static constexpr std::size_t dim_param = DimParam;
         static constexpr std::size_t n_resp = NResp;
-        xt::xtensor<double, DimParam> prior;
         xt::xtensor<double, DimParam> posterior;
         xt::xtensor<double, DimParam + DimStim + 1> likelihoods;
         std::array<xt::xtensor<double, 1>, DimStim> stimuli;
@@ -240,8 +238,7 @@ namespace psydapt::questplus
         void setup()
         {
             // everything else for init, post-assigning settings
-            prior = xt::eval(generate_prior());
-            posterior = prior;
+            posterior = xt::eval(generate_prior());
             likelihoods = xt::eval(generate_likelihoods());
             new_posterior = xt::xtensor<double, DimParam + DimStim + 1>::from_shape(likelihoods.shape());
             make_stimuli();

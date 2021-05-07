@@ -81,10 +81,10 @@ namespace psydapt::questplus
 
         xt::xtensor<double, NormCDF::dim_param> generate_prior()
         {
-            auto loc_prior = prior_helper(settings.location, settings.location_prior, 0);
-            auto scale_prior = prior_helper(settings.scale, settings.scale_prior, 1);
-            auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
-            auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
+            const auto loc_prior = prior_helper(settings.location, settings.location_prior, 0);
+            const auto scale_prior = prior_helper(settings.scale, settings.scale_prior, 1);
+            const auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);
+            const auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);
             xt::xtensor<double, NormCDF::dim_param> prior = loc_prior * scale_prior * lower_prior * lapse_prior;
             return prior / xt::sum(prior, xt::evaluation_strategy::immediate);
         }
@@ -92,11 +92,11 @@ namespace psydapt::questplus
         xt::xtensor<double, NormCDF::dim_param + NormCDF::dim_stim + 1> generate_likelihoods()
         {
             using sz = std::array<std::size_t, NormCDF::dim_param + NormCDF::dim_stim>;
-            auto x = xt::adapt<xt::layout_type::row_major>(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
-            auto loc = xt::adapt<xt::layout_type::row_major>(settings.location, sz{1, settings.location.size(), 1, 1, 1});
-            auto scale = xt::adapt<xt::layout_type::row_major>(settings.scale, sz{1, 1, settings.scale.size(), 1, 1});
-            auto lower = xt::adapt<xt::layout_type::row_major>(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
-            auto lapse = xt::adapt<xt::layout_type::row_major>(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
+            const auto x = xt::adapt<xt::layout_type::row_major>(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});
+            const auto loc = xt::adapt<xt::layout_type::row_major>(settings.location, sz{1, settings.location.size(), 1, 1, 1});
+            const auto scale = xt::adapt<xt::layout_type::row_major>(settings.scale, sz{1, 1, settings.scale.size(), 1, 1});
+            const auto lower = xt::adapt<xt::layout_type::row_major>(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});
+            const auto lapse = xt::adapt<xt::layout_type::row_major>(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});
 
             xt::xtensor<double, NormCDF::dim_param + NormCDF::dim_stim> p;
             switch (settings.stim_scale)

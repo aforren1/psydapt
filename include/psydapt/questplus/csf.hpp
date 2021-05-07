@@ -83,13 +83,13 @@ namespace psydapt::questplus
 
         xt::xtensor<double, CSF::dim_param> generate_prior()
         {
-            auto c0_prior = prior_helper(settings.c0, settings.c0_prior, 0);
-            auto cf_prior = prior_helper(settings.cf, settings.cf_prior, 1);
-            auto cw_prior = prior_helper(settings.cw, settings.cw_prior, 2);
-            auto min_thresh_prior = prior_helper(settings.min_thresh, settings.min_thresh_prior, 3);
-            auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 4);
-            auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 5);
-            auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 6);
+            const auto c0_prior = prior_helper(settings.c0, settings.c0_prior, 0);
+            const auto cf_prior = prior_helper(settings.cf, settings.cf_prior, 1);
+            const auto cw_prior = prior_helper(settings.cw, settings.cw_prior, 2);
+            const auto min_thresh_prior = prior_helper(settings.min_thresh, settings.min_thresh_prior, 3);
+            const auto slope_prior = prior_helper(settings.slope, settings.slope_prior, 4);
+            const auto lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 5);
+            const auto lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 6);
             xt::xtensor<double, CSF::dim_param> prior = c0_prior * cf_prior * cw_prior * min_thresh_prior * slope_prior * lower_prior * lapse_prior;
             return prior / xt::sum(prior, xt::evaluation_strategy::immediate);
         }
@@ -101,19 +101,19 @@ namespace psydapt::questplus
             using sz = std::array<std::size_t, CSF::dim_param + CSF::dim_stim>;
             // const auto &row_major = xt::layout_type::row_major;
             // stim
-            auto x = xt::adapt<xt::layout_type::row_major>(set.contrast, sz{set.contrast.size(), 1, 1, 1, 1, 1, 1, 1, 1, 1});
-            auto f = xt::adapt<xt::layout_type::row_major>(set.spatial_freq, sz{1, set.spatial_freq.size(), 1, 1, 1, 1, 1, 1, 1, 1});
-            auto w = xt::adapt<xt::layout_type::row_major>(set.temporal_freq, sz{1, 1, set.temporal_freq.size(), 1, 1, 1, 1, 1, 1, 1});
+            const auto x = xt::adapt<xt::layout_type::row_major>(set.contrast, sz{set.contrast.size(), 1, 1, 1, 1, 1, 1, 1, 1, 1});
+            const auto f = xt::adapt<xt::layout_type::row_major>(set.spatial_freq, sz{1, set.spatial_freq.size(), 1, 1, 1, 1, 1, 1, 1, 1});
+            const auto w = xt::adapt<xt::layout_type::row_major>(set.temporal_freq, sz{1, 1, set.temporal_freq.size(), 1, 1, 1, 1, 1, 1, 1});
             // param
-            auto c0 = xt::adapt<xt::layout_type::row_major>(set.c0, sz{1, 1, 1, set.c0.size(), 1, 1, 1, 1, 1, 1});
-            auto cf = xt::adapt<xt::layout_type::row_major>(set.cf, sz{1, 1, 1, 1, set.cf.size(), 1, 1, 1, 1, 1});
-            auto cw = xt::adapt<xt::layout_type::row_major>(set.cw, sz{1, 1, 1, 1, 1, set.cw.size(), 1, 1, 1, 1});
-            auto min_thresh = xt::adapt<xt::layout_type::row_major>(set.min_thresh, sz{1, 1, 1, 1, 1, 1, set.min_thresh.size(), 1, 1, 1});
-            auto slope = xt::adapt<xt::layout_type::row_major>(set.slope, sz{1, 1, 1, 1, 1, 1, 1, set.slope.size(), 1, 1});
-            auto lower = xt::adapt<xt::layout_type::row_major>(set.lower_asymptote, sz{1, 1, 1, 1, 1, 1, 1, 1, set.lower_asymptote.size(), 1});
-            auto lapse = xt::adapt<xt::layout_type::row_major>(set.lapse_rate, sz{1, 1, 1, 1, 1, 1, 1, 1, 1, set.lapse_rate.size()});
+            const auto c0 = xt::adapt<xt::layout_type::row_major>(set.c0, sz{1, 1, 1, set.c0.size(), 1, 1, 1, 1, 1, 1});
+            const auto cf = xt::adapt<xt::layout_type::row_major>(set.cf, sz{1, 1, 1, 1, set.cf.size(), 1, 1, 1, 1, 1});
+            const auto cw = xt::adapt<xt::layout_type::row_major>(set.cw, sz{1, 1, 1, 1, 1, set.cw.size(), 1, 1, 1, 1});
+            const auto min_thresh = xt::adapt<xt::layout_type::row_major>(set.min_thresh, sz{1, 1, 1, 1, 1, 1, set.min_thresh.size(), 1, 1, 1});
+            const auto slope = xt::adapt<xt::layout_type::row_major>(set.slope, sz{1, 1, 1, 1, 1, 1, 1, set.slope.size(), 1, 1});
+            const auto lower = xt::adapt<xt::layout_type::row_major>(set.lower_asymptote, sz{1, 1, 1, 1, 1, 1, 1, 1, set.lower_asymptote.size(), 1});
+            const auto lapse = xt::adapt<xt::layout_type::row_major>(set.lapse_rate, sz{1, 1, 1, 1, 1, 1, 1, 1, 1, set.lapse_rate.size()});
 
-            auto t = xt::maximum(min_thresh, c0 + cf * f + cw * w);
+            const auto t = xt::maximum(min_thresh, c0 + cf * f + cw * w);
             xt::xtensor<double, CSF::dim_param + CSF::dim_stim> p;
             switch (settings.stim_scale)
             {
