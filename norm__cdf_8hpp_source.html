@@ -149,10 +149,10 @@ $(function() {
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        xt::xtensor&lt;double, NormCDF::dim_param&gt; generate_prior()</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">auto</span> loc_prior = prior_helper(settings.location, settings.location_prior, 0);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keyword">auto</span> scale_prior = prior_helper(settings.scale, settings.scale_prior, 1);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keyword">auto</span> lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keyword">auto</span> lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> loc_prior = prior_helper(settings.location, settings.location_prior, 0);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> scale_prior = prior_helper(settings.scale, settings.scale_prior, 1);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> lower_prior = prior_helper(settings.lower_asymptote, settings.lower_asymptote_prior, 2);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> lapse_prior = prior_helper(settings.lapse_rate, settings.lapse_rate_prior, 3);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            xt::xtensor&lt;double, NormCDF::dim_param&gt; prior = loc_prior * scale_prior * lower_prior * lapse_prior;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span> prior / xt::sum(prior, xt::evaluation_strategy::immediate);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
@@ -160,11 +160,11 @@ $(function() {
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        xt::xtensor&lt;double, NormCDF::dim_param + NormCDF::dim_stim + 1&gt; generate_likelihoods()</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        {</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keyword">using</span> sz = std::array&lt;std::size_t, NormCDF::dim_param + NormCDF::dim_stim&gt;;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">auto</span> x = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keyword">auto</span> loc = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.location, sz{1, settings.location.size(), 1, 1, 1});</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keyword">auto</span> scale = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.scale, sz{1, 1, settings.scale.size(), 1, 1});</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keyword">auto</span> lower = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keyword">auto</span> lapse = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> x = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.intensity, sz{settings.intensity.size(), 1, 1, 1, 1});</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> loc = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.location, sz{1, settings.location.size(), 1, 1, 1});</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> scale = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.scale, sz{1, 1, settings.scale.size(), 1, 1});</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> lower = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lower_asymptote, sz{1, 1, 1, settings.lower_asymptote.size(), 1});</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> lapse = xt::adapt&lt;xt::layout_type::row_major&gt;(settings.lapse_rate, sz{1, 1, 1, 1, settings.lapse_rate.size()});</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            xt::xtensor&lt;double, NormCDF::dim_param + NormCDF::dim_stim&gt; p;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">switch</span> (settings.stim_scale)</div>
