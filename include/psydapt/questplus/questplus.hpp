@@ -130,8 +130,12 @@ namespace psydapt::questplus
                 }
                 do
                 {
-                    auto tmp_posterior = std::apply([&np = this->new_posterior](auto &&...xs) { return xt::view(np, xs...); }, idx);
-                    auto tmp_likelihood = std::apply([&lk = this->likelihoods](auto &&...xs) { return xt::view(lk, xs...); }, idx);
+                    auto tmp_posterior = std::apply([&np = this->new_posterior](auto &&...xs)
+                                                    { return xt::view(np, xs...); },
+                                                    idx);
+                    auto tmp_likelihood = std::apply([&lk = this->likelihoods](auto &&...xs)
+                                                     { return xt::view(lk, xs...); },
+                                                     idx);
                     xt::noalias(tmp_posterior) = tmp_likelihood * posterior;
                 } while (detail::increment<DimStim + 1>(idx, upper));
             }
@@ -144,8 +148,7 @@ namespace psydapt::questplus
             // xt::transpose(new_posterior) /= xt::transpose(pk);
 
             // entropy
-            const auto lognp = xt::log(new_posterior);
-            H = -xt::nansum(new_posterior * lognp, param_idx, xt::evaluation_strategy::immediate);
+            H = -xt::nansum(new_posterior * xt::log(new_posterior), param_idx, xt::evaluation_strategy::immediate);
             // expected entropies for stimuli
             EH = xt::sum(pk * H, 0, xt::evaluation_strategy::immediate);
             // TODO: just do min_entropy by default until figure out retrieving settings
@@ -200,10 +203,12 @@ namespace psydapt::questplus
                 {
                     idx[i] = xt::argmin(xt::abs(stimuli[i] - last_stim[i]))[0];
                 }
-                likelihood = std::apply([&likelihood2](auto &&...xs) { return xt::view(likelihood2, xs...); }, idx);
+                likelihood = std::apply([&likelihood2](auto &&...xs)
+                                        { return xt::view(likelihood2, xs...); },
+                                        idx);
             }
-            xt::noalias(posterior) = xt::eval(posterior * likelihood);
-            xt::noalias(posterior) = xt::eval(posterior / xt::sum(posterior, xt::evaluation_strategy::immediate));
+            xt::noalias(posterior) = posterior * likelihood;
+            xt::noalias(posterior) = posterior / xt::sum(posterior, xt::evaluation_strategy::immediate);
 
             return true; // unconditionally continue for now
         }
@@ -238,8 +243,8 @@ namespace psydapt::questplus
         void setup()
         {
             // everything else for init, post-assigning settings
-            posterior = xt::eval(generate_prior());
-            likelihoods = xt::eval(generate_likelihoods());
+            posterior = generate_prior();
+            likelihoods = generate_likelihoods();
             new_posterior = xt::xtensor<double, DimParam + DimStim + 1>::from_shape(likelihoods.shape());
             make_stimuli();
             // TODO: pick something smarter, once we incorporate termination conditions

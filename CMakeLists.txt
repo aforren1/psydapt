@@ -25,6 +25,7 @@ add_subdirectory(submodules)
 option(PSYDAPT_BUILD_TESTS "Build unit tests" OFF)
 option(PSYDAPT_BUILD_SCRATCH "Build scratch files" OFF)
 option(PSYDAPT_DISABLE_EXCEPTIONS "Disable use of C++ exceptions" OFF)
+option(PSYDAPT_FAST_MATH "Use fast math" OFF)
 
 if (PSYDAPT_DISABLE_EXCEPTIONS)
     add_definitions(-DPSYDAPT_DISABLE_EXCEPTIONS)
@@ -33,6 +34,15 @@ endif()
 add_library(psydapt INTERFACE)
 target_link_libraries(psydapt INTERFACE xtensor)
 #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -mavx2 -ffast-math -funroll-loops")
+# can't tell whether ffast-math actually makes a difference...
+if (PSYDAPT_FAST_MATH)
+    if((CMAKE_CXX_COMPILER_ID MATCHES "Clang") OR (CMAKE_CXX_COMPILER_ID MATCHES "GNU"))
+        add_compile_options(-ffast-math)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_compile_options(/fp:fast)
+    endif()
+endif()
+
 target_include_directories(psydapt
     INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
